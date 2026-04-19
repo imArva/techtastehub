@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Taste Hub — Cita Rasa Tekno, Kelezatan Hakiki</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="Tech Taste Hub Icon" href="favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        kuning: '#F9C80E',
+                        kuningDark: '#E0B400',
+                        marun: '#A32323',
+                        marunDark: '#8B0000',
+                        krem: '#FFF9E3',
+                        kremDeep: '#FFF3CC',
+                        coklat: '#3E2723',
+                        coklatLight: '#5D4037',
+                    },
+                    fontFamily: {
+                        poppins: ['Poppins', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        * { font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
+
+        /* Sunburst Background */
+        .sunburst {
+            background: repeating-conic-gradient(
+                from 0deg,
+                rgba(249, 200, 14, 0.06) 0deg 10deg,
+                transparent 10deg 20deg
+            );
+        }
+
+        /* Animations */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .fade-left {
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+        }
+        .fade-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .fade-right {
+            opacity: 0;
+            transform: translateX(40px);
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+        }
+        .fade-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .scale-in {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .scale-in.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Card Hover */
+        .menu-card {
+            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
+        }
+        .menu-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Floating WhatsApp pulse */
+        @keyframes pulse-ring {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(1.4); opacity: 0; }
+        }
+        .wa-pulse::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            background: #25D366;
+            animation: pulse-ring 1.8s ease-out infinite;
+            z-index: -1;
+        }
+
+        /* Smooth nav bg */
+        .nav-scrolled {
+            background: rgba(255, 249, 227, 0.95) !important;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 2px 20px rgba(62, 39, 35, 0.08);
+        }
+
+        /* Tab active */
+        .tab-btn.active {
+            background: #A32323;
+            color: #FFF9E3;
+        }
+
+        /* Hero image shimmer */
+        @keyframes shimmer {
+            0%, 100% { transform: scale(1.02); }
+            50% { transform: scale(1.06); }
+        }
+        .hero-img-float {
+            animation: shimmer 4s ease-in-out infinite;
+        }
+
+        /* Marquee */
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .marquee-track {
+            animation: marquee 20s linear infinite;
+        }
+
+        /* Testimonial card */
+        .testi-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .testi-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px -8px rgba(163, 35, 35, 0.15);
+        }
+
+        /* Mobile menu */
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+
+        /* Sticky CTA */
+        .sticky-cta {
+            transition: all 0.3s ease;
+        }
+        .sticky-cta:hover {
+            transform: scale(1.05);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #FFF9E3; }
+        ::-webkit-scrollbar-thumb { background: #F9C80E; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #E0B400; }
+    </style>
+</head>
+<body class="bg-krem text-coklat overflow-x-hidden">
+
+    <!-- ============ NAVBAR ============ -->
+    <nav id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 sm:h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-2 group">
+                    <div class="w-16 h-16 sm:w-16 sm:h-16 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                        <!-- <span class="text-kuning font-extrabold text-base sm:text-lg">T</span> -->
+                         <img src="/img/TTH-Logo.png" alt="Logo Tech Taste Hub">
+                    </div>
+                    <div class="leading-tight">
+                        <span class="font-bold text-marun text-sm sm:text-base tracking-tight">Tech Taste</span>
+                        <span class="font-bold text-kuning text-sm sm:text-base tracking-tight"> Hub</span>
+                    </div>
+                    
+                </a>
+
+                <!-- Desktop Nav -->
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#home" class="text-coklat hover:text-marun font-medium transition-colors duration-200 text-sm">Home</a>
+                    <a href="#menu" class="text-coklat hover:text-marun font-medium transition-colors duration-200 text-sm">Menu Kami</a>
+                    <a href="#cara-order" class="text-coklat hover:text-marun font-medium transition-colors duration-200 text-sm">Cara Order</a>
+                    <a href="#testimoni" class="text-coklat hover:text-marun font-medium transition-colors duration-200 text-sm">Testimoni</a>
+                    <a href="https://wa.me/6282172073426?text=Halo%20Tech%20Taste%20Hub%2C%20saya%20mau%20pesan!" target="_blank"
+                       class="bg-marun text-krem px-5 py-2.5 rounded-full font-semibold text-sm hover:bg-marunDark hover:shadow-lg transition-all duration-300 flex items-center gap-2">
+                        <i data-lucide="message-circle" class="w-4 h-4"></i>
+                        Pesan Sekarang
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="menu-toggle" class="md:hidden p-2 text-coklat hover:text-marun transition-colors">
+                    <i data-lucide="menu" class="w-6 h-6" id="menu-icon-open"></i>
+                    <i data-lucide="x" class="w-6 h-6 hidden" id="menu-icon-close"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 h-full w-72 bg-krem shadow-2xl z-50 p-6 md:hidden">
+            <div class="flex justify-end mb-8">
+                <button id="menu-close" class="p-2 text-coklat hover:text-marun">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+            <div class="flex flex-col gap-4">
+                <a href="#home" class="mobile-link text-lg font-semibold text-coklat hover:text-marun py-2 border-b border-kuning/30 transition-colors">Home</a>
+                <a href="#menu" class="mobile-link text-lg font-semibold text-coklat hover:text-marun py-2 border-b border-kuning/30 transition-colors">Menu Kami</a>
+                <a href="#cara-order" class="mobile-link text-lg font-semibold text-coklat hover:text-marun py-2 border-b border-kuning/30 transition-colors">Cara Order</a>
+                <a href="#testimoni" class="mobile-link text-lg font-semibold text-coklat hover:text-marun py-2 border-b border-kuning/30 transition-colors">Testimoni</a>
+                <a href="https://wa.me/6282172073426?text=Halo%20Tech%20Taste%20Hub%2C%20saya%20mau%20pesan!" target="_blank"
+                   class="bg-marun text-krem px-5 py-3 rounded-full font-semibold text-center mt-4 hover:bg-marunDark transition-all flex items-center justify-center gap-2">
+                    <i data-lucide="message-circle" class="w-5 h-5"></i>
+                    Pesan Sekarang
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="menu-overlay" class="fixed inset-0 bg-coklat/30 backdrop-blur-sm z-40 hidden md:hidden"></div>
+
+    <!-- ============ HERO SECTION ============ -->
+    <section id="home" class="relative min-h-screen flex items-center pt-20 overflow-hidden">
+        <!-- Sunburst BG -->
+        <div class="sunburst absolute inset-0 opacity-60"></div>
+
+        <!-- Decorative circles -->
+        <div class="absolute top-20 -left-32 w-96 h-96 bg-kuning/10 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-10 -right-32 w-80 h-80 bg-marun/10 rounded-full blur-3xl"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+                <!-- Text -->
+                <div class="fade-up order-2 lg:order-1 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 bg-kuning/20 border border-kuning/40 rounded-full px-4 py-1.5 mb-6">
+                        <span class="w-2 h-2 bg-kuning rounded-full animate-pulse"></span>
+                        <span class="text-xs font-semibold text-coklatLight uppercase tracking-wider">Freshly Made Daily</span>
+                    </div>
+
+                    <h1 class="text-4xl sm:text-5xl lg:text-7xl font-extrabold leading-[1.05] tracking-tight mb-4">
+                        <span class="text-marun">Cita Rasa</span><br>
+                        <span class="text-coklat">Tekno,</span>
+                        <span class="text-kuning" style="text-shadow: 0 2px 15px rgba(249,200,14,0.3);"> Kelezatan</span><br>
+                        <span class="text-marun">Hakiki.</span>
+                    </h1>
+
+                    <p class="text-coklatLight text-base sm:text-lg leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0">
+                        Nikmati perpaduan sempurna <strong class="text-marun">Risol Mayo</strong>, <strong class="text-marun">Pangsit Chili Oil</strong>, dan <strong class="text-coklat">Es Coklat</strong> viral dalam satu klik.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
+                        <a href="#menu" class="bg-marun text-krem px-8 py-4 rounded-full font-bold text-base hover:bg-marunDark hover:shadow-xl hover:shadow-marun/20 transition-all duration-300 flex items-center justify-center gap-2">
+                            <i data-lucide="utensils-crossed" class="w-5 h-5"></i>
+                            Lihat Menu Sekarang
+                        </a>
+                        <a href="#cara-order" class="border-2 border-coklat/20 text-coklat px-8 py-4 rounded-full font-semibold text-base hover:border-kuning hover:bg-kuning/10 transition-all duration-300 flex items-center justify-center gap-2">
+                            <i data-lucide="play-circle" class="w-5 h-5"></i>
+                            Cara Order
+                        </a>
+                    </div>
+
+                    <!-- Mini Stats -->
+                    <!-- <div class="flex gap-6 mt-10 justify-center lg:justify-start">
+                        <div class="text-center">
+                            <div class="text-2xl sm:text-3xl font-extrabold text-marun">500+</div>
+                            <div class="text-xs text-coklatLight font-medium">Pesanan/Bulan</div>
+                        </div>
+                        <div class="w-px bg-coklat/15"></div>
+                        <div class="text-center">
+                            <div class="text-2xl sm:text-3xl font-extrabold text-marun">4.9</div>
+                            <div class="text-xs text-coklatLight font-medium">⭐ Rating</div>
+                        </div>
+                        <div class="w-px bg-coklat/15"></div>
+                        <div class="text-center">
+                            <div class="text-2xl sm:text-3xl font-extrabold text-marun">15min</div>
+                            <div class="text-xs text-coklatLight font-medium">Delivery</div>
+                        </div>
+                    </div> -->
+                </div>
+
+                <!-- Hero Images -->
+                <div class="order-1 lg:order-2 flex justify-center fade-up" style="transition-delay: 0.2s">
+                    <div class="relative">
+                        <!-- Main food image -->
+                        <div class="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-[420px] lg:h-[420px] rounded-full overflow-hidden border-4 border-kuning/40 shadow-2xl shadow-kuning/20">
+                            <img src="/img/risol-mayo.jpg" alt="Risol Mayo Tech Taste Hub"
+                                 class="w-full h-full object-cover hero-img-float">
+                        </div>
+                        <!-- Floating card 1 -->
+                        <div class="absolute -bottom-4 -left-6 sm:-left-10 bg-white rounded-2xl p-3 shadow-xl border border-kuning/20 scale-in" style="transition-delay: 0.6s">
+                            <div class="flex items-center gap-2">
+                                <div class="w-10 h-10 bg-marun/10 rounded-full flex items-center justify-center">
+                                    <i data-lucide="flame" class="w-5 h-5 text-marun"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs font-bold text-coklat">Best Seller!</div>
+                                    <div class="text-[10px] text-coklatLight">Risol Mayo</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Floating card 2 -->
+                        <div class="absolute -top-4 -right-4 sm:-right-10 bg-white rounded-2xl p-3 shadow-xl border border-kuning/20 scale-in" style="transition-delay: 0.8s">
+                            <!-- <div class="flex items-center gap-2">
+                                <div class="w-10 h-10 bg-kuning/20 rounded-full flex items-center justify-center">
+                                    <i data-lucide="star" class="w-5 h-5 text-kuning"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs font-bold text-coklat">4.9 / 5.0</div>
+                                    <div class="text-[10px] text-coklatLight">200+ Review</div>
+                                </div>
+                            </div> -->
+                            <div class="flex items-center gap-2">
+                                <div class="w-10 h-10 bg-marun/10 rounded-full flex items-center justify-center">
+                                    <i data-lucide="flame" class="w-5 h-5 text-marun"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs font-bold text-coklat">Best Seller!</div>
+                                    <div class="text-[10px] text-coklatLight">Risol Mayo</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 opacity-50">
+            <span class="text-[10px] uppercase tracking-widest text-coklatLight">Scroll</span>
+            <div class="w-5 h-8 border-2 border-coklat/30 rounded-full flex justify-center pt-1">
+                <div class="w-1 h-2 bg-coklat/40 rounded-full animate-bounce"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ MARQUEE STRIP ============ -->
+    <div class="bg-marun py-3 overflow-hidden">
+        <div class="marquee-track flex gap-8 whitespace-nowrap">
+            <span class="text-kuning font-bold text-sm tracking-wide">🌶️ PANGSIT CHILI OIL</span>
+            <span class="text-krem/60">•</span>
+            <span class="text-kuning font-bold text-sm tracking-wide">🧀 RISOL COKLAT KEJU</span>
+            <span class="text-krem/60">•</span>
+            <span class="text-kuning font-bold text-sm tracking-wide">🥪 RISOL MAYO PREMIUM</span>
+            <span class="text-krem/60">•</span>
+            <span class="text-kuning font-bold text-sm tracking-wide">🍫 ES COKLAT VIRAL</span>
+            <span class="text-krem/60">•</span>
+            <span class="text-kuning font-bold text-sm tracking-wide">🔥 FRESHLY MADE DAILY</span>
+            <span class="text-krem/60">•</span>
+            <!-- Duplicate for seamless loop -->
+            <span class="text-kuning font-bold text-sm tracking-wide">🌶️ PANGSIT CHILI OIL</span>
+            <span class="text-krem/60">•</span>
+            <span class="text-kuning font-bold text-sm tracking-wide">🧀 RISOL COKLAT KEJU</span>
+            <span class="text-krem/60">•</span>
+            <span class="text-kuning font-bold text-sm tracking-wide">🥪 RISOL MAYO PREMIUM</span>
+            <span class="text-krem/60">•</span>
+            <span class="text-kuning font-bold text-sm tracking-wide">🍫 ES COKLAT VIRAL</span>
+            <span class="text-krem/60">•</span>
+            <span class="text-kuning font-bold text-sm tracking-wide">🔥 FRESHLY MADE DAILY</span>
+        </div>
+    </div>
+
+    <!-- ============ MENU SECTION ============ -->
+    <section id="menu" class="py-16 sm:py-24 relative">
+        <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-kuning/40 to-transparent"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center mb-12 fade-up">
+                <div class="inline-flex items-center gap-2 bg-marun/10 rounded-full px-4 py-1.5 mb-4">
+                    <i data-lucide="code-2" class="w-3.5 h-3.5 text-marun"></i>
+                    <span class="text-xs font-semibold text-marun uppercase tracking-wider">Our Menu</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-coklat tracking-tight">
+                    Menu <span class="text-marun">Pilihan</span>
+                </h2>
+                <p class="text-coklatLight mt-3 max-w-lg mx-auto">Dibuat dengan bahan premium dan resep rahasia setiap hari, langsung ke tanganmu.</p>
+            </div>
+
+            <!-- Category Tabs -->
+            <div class="flex flex-wrap justify-center gap-2 sm:gap-3 mb-10 fade-up" style="transition-delay:0.1s">
+                <button class="tab-btn active px-5 py-2.5 rounded-full font-semibold text-sm transition-all duration-300 border border-marun/20" data-category="semua">Semua</button>
+                <button class="tab-btn px-5 py-2.5 rounded-full font-semibold text-sm transition-all duration-300 border border-marun/20 text-coklat hover:bg-marun/10" data-category="savory">🌶️ The Savory Tech</button>
+                <button class="tab-btn px-5 py-2.5 rounded-full font-semibold text-sm transition-all duration-300 border border-marun/20 text-coklat hover:bg-marun/10" data-category="sweet">🍫 The Sweet Logic</button>
+            </div>
+
+            <!-- Menu Grid -->
+            <div id="menu-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+                <!-- Card 1: Risol Mayo -->
+                <div class="menu-card bg-white rounded-3xl overflow-hidden shadow-lg border border-kuning/10 fade-up" data-cat="savory" style="transition-delay:0.1s">
+                    <div class="relative overflow-hidden">
+                        <img src="/img/risol-mayo.jpg" alt="Risol Mayo"
+                             class="w-full h-48 sm:h-52 object-cover transition-transform duration-500 hover:scale-110">
+                        <div class="absolute top-3 left-3 bg-marun text-krem text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wide">Best Seller</div>
+                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-marun text-xs font-bold px-3 py-1 rounded-full">🌶️ Savory</div>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg text-coklat mb-1">Risol Mayo</h3>
+                        <p class="text-coklatLight text-sm leading-relaxed mb-3">Kulit renyah, isian smoke beef & mayo premium yang lumer di mulut.</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xl font-extrabold text-marun">Rp 4.000</span>
+                            <a href="https://wa.me/6282172073426?text=Halo%2C%20saya%20mau%20pesan%20Risol%20Mayo!" target="_blank"
+                               class="w-10 h-10 bg-kuning rounded-full flex items-center justify-center hover:bg-kuningDark transition-colors duration-200 shadow-md">
+                                <i data-lucide="plus" class="w-5 h-5 text-coklat"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Pangsit Chili Oil -->
+                <div class="menu-card bg-white rounded-3xl overflow-hidden shadow-lg border border-kuning/10 fade-up" data-cat="savory" style="transition-delay:0.2s">
+                    <div class="relative overflow-hidden">
+                        <img src="/img/pangsit.jpg" alt="Pangsit Chili Oil"
+                             class="w-full h-48 sm:h-52 object-cover transition-transform duration-500 hover:scale-110">
+                        <div class="absolute top-3 left-3 bg-red-600 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wide">🔥 Spicy!</div>
+                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-marun text-xs font-bold px-3 py-1 rounded-full">🌶️ Savory</div>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg text-coklat mb-1">Pangsit Chili Oil</h3>
+                        <p class="text-coklatLight text-sm leading-relaxed mb-3">Pangsit kenyal dengan bumbu chili oil rahasia Tech Taste. Pedas nampol!</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xl font-extrabold text-marun">Rp 10.000</span>
+                            <a href="https://wa.me/6282172073426?text=Halo%2C%20saya%20mau%20pesan%20Pangsit%20Chili%20Oil!" target="_blank"
+                               class="w-10 h-10 bg-kuning rounded-full flex items-center justify-center hover:bg-kuningDark transition-colors duration-200 shadow-md">
+                                <i data-lucide="plus" class="w-5 h-5 text-coklat"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Risol Coklat Keju -->
+                <div class="menu-card bg-white rounded-3xl overflow-hidden shadow-lg border border-kuning/10 fade-up" data-cat="sweet" style="transition-delay:0.3s">
+                    <div class="relative overflow-hidden">
+                        <img src="/img/risol-ck.jpg" alt="Risol Coklat Keju"
+                             class="w-full h-48 sm:h-52 object-cover transition-transform duration-500 hover:scale-110">
+                        <div class="absolute top-3 left-3 bg-kuning text-coklat text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wide">Sweet</div>
+                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-coklat text-xs font-bold px-3 py-1 rounded-full">🍫 Sweet</div>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg text-coklat mb-1">Risol Coklat Keju</h3>
+                        <p class="text-coklatLight text-sm leading-relaxed mb-3">Lumeran coklat premium dipadu gurihnya keju mozzarella. Manis & salto!</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xl font-extrabold text-marun">Rp 4.000</span>
+                            <a href="https://wa.me/6282172073426?text=Halo%2C%20saya%20mau%20pesan%20Risol%20Coklat%20Keju!" target="_blank"
+                               class="w-10 h-10 bg-kuning rounded-full flex items-center justify-center hover:bg-kuningDark transition-colors duration-200 shadow-md">
+                                <i data-lucide="plus" class="w-5 h-5 text-coklat"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4: Es Coklat -->
+                <div class="menu-card bg-white rounded-3xl overflow-hidden shadow-lg border border-kuning/10 fade-up" data-cat="sweet" style="transition-delay:0.4s">
+                    <div class="relative overflow-hidden">
+                        <img src="/img/es-coklat.jpg" alt="Es Coklat"
+                             class="w-full h-48 sm:h-52 object-cover transition-transform duration-500 hover:scale-110">
+                        <div class="absolute top-3 left-3 bg-coklat text-krem text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wide">Viral!</div>
+                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-coklat text-xs font-bold px-3 py-1 rounded-full">🍫 Sweet</div>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg text-coklat mb-1">Es Coklat</h3>
+                        <p class="text-coklatLight text-sm leading-relaxed mb-3">Coklat pekat premium, tidak terlalu manis, cocok buat celupan risol!</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xl font-extrabold text-marun">Rp 10.000</span>
+                            <a href="https://wa.me/6282172073426?text=Halo%2C%20saya%20mau%20pesan%20Es%20Coklat!" target="_blank"
+                               class="w-10 h-10 bg-kuning rounded-full flex items-center justify-center hover:bg-kuningDark transition-colors duration-200 shadow-md">
+                                <i data-lucide="plus" class="w-5 h-5 text-coklat"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Promo Banner -->
+            <!-- <div class="mt-12 bg-gradient-to-r from-marun to-marunDark rounded-3xl p-6 sm:p-8 flex flex-col sm:flex-row items-center gap-6 fade-up" style="transition-delay:0.2s">
+                <div class="flex-shrink-0">
+                    <div class="w-16 h-16 sm:w-20 sm:h-20 bg-kuning rounded-2xl flex items-center justify-center">
+                        <i data-lucide="percent" class="w-8 h-8 sm:w-10 sm:h-10 text-coklat"></i>
+                    </div>
+                </div>
+                <div class="text-center sm:text-left flex-1">
+                    <h3 class="text-xl sm:text-2xl font-bold text-kuning mb-1">Bundle Hemat! 🎉</h3>
+                    <p class="text-krem/80 text-sm sm:text-base">Pesan 2 Risol + 1 Es Coklat cuma <strong class="text-kuning text-lg">Rp 35.000</strong> (hemat Rp 5.000)</p>
+                </div>
+                <a href="https://wa.me/6282172073426?text=Halo%2C%20saya%20mau%20pesan%20Bundle%20Hemat!" target="_blank"
+                   class="bg-kuning text-coklat px-6 py-3 rounded-full font-bold text-sm hover:bg-kuningDark transition-all duration-300 whitespace-nowrap shadow-lg">
+                    Pesan Bundle!
+                </a>
+            </div> -->
+        </div>
+    </section>
+
+    <!-- ============ WHY TECH TASTE HUB ============ -->
+    <section class="py-16 sm:py-24 bg-white relative">
+        <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-marun/20 to-transparent"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-14 fade-up">
+                <div class="inline-flex items-center gap-2 bg-kuning/20 rounded-full px-4 py-1.5 mb-4">
+                    <i data-lucide="cpu" class="w-3.5 h-3.5 text-coklat"></i>
+                    <span class="text-xs font-semibold text-coklat uppercase tracking-wider">Why Us</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-coklat tracking-tight">
+                    Mengapa <span class="text-marun">Tech Taste Hub</span>?
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Feature 1 -->
+                <div class="bg-krem rounded-3xl p-6 text-center group hover:bg-marun transition-all duration-500 fade-up" style="transition-delay:0.1s">
+                    <div class="w-16 h-16 bg-kuning/20 group-hover:bg-kuning/30 rounded-2xl flex items-center justify-center mx-auto mb-5 transition-colors duration-300">
+                        <i data-lucide="gem" class="w-7 h-7 text-marun group-hover:text-kuning transition-colors duration-300"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-coklat group-hover:text-krem mb-2 transition-colors duration-300">Bahan Premium</h3>
+                    <p class="text-coklatLight group-hover:text-krem/70 text-sm leading-relaxed transition-colors duration-300">"Source code" rasa kami berasal dari bahan pilihan berkualitas tinggi.</p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="bg-krem rounded-3xl p-6 text-center group hover:bg-marun transition-all duration-500 fade-up" style="transition-delay:0.2s">
+                    <div class="w-16 h-16 bg-kuning/20 group-hover:bg-kuning/30 rounded-2xl flex items-center justify-center mx-auto mb-5 transition-colors duration-300">
+                        <i data-lucide="clock" class="w-7 h-7 text-marun group-hover:text-kuning transition-colors duration-300"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-coklat group-hover:text-krem mb-2 transition-colors duration-300">Freshly Made</h3>
+                    <p class="text-coklatLight group-hover:text-krem/70 text-sm leading-relaxed transition-colors duration-300">Dibuat setiap hari sesuai pesanan, bukan stok basi. Fresh guarantee!</p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="bg-krem rounded-3xl p-6 text-center group hover:bg-marun transition-all duration-500 fade-up" style="transition-delay:0.3s">
+                    <div class="w-16 h-16 bg-kuning/20 group-hover:bg-kuning/30 rounded-2xl flex items-center justify-center mx-auto mb-5 transition-colors duration-300">
+                        <i data-lucide="zap" class="w-7 h-7 text-marun group-hover:text-kuning transition-colors duration-300"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-coklat group-hover:text-krem mb-2 transition-colors duration-300">Pengiriman Cepat</h3>
+                    <p class="text-coklatLight group-hover:text-krem/70 text-sm leading-relaxed transition-colors duration-300">Sampai di tanganmu sebelum "loading" lapar berakhir. Cepat & aman!</p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="bg-krem rounded-3xl p-6 text-center group hover:bg-marun transition-all duration-500 fade-up" style="transition-delay:0.4s">
+                    <div class="w-16 h-16 bg-kuning/20 group-hover:bg-kuning/30 rounded-2xl flex items-center justify-center mx-auto mb-5 transition-colors duration-300">
+                        <i data-lucide="shield-check" class="w-7 h-7 text-marun group-hover:text-kuning transition-colors duration-300"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-coklat group-hover:text-krem mb-2 transition-colors duration-300">Higienis</h3>
+                    <p class="text-coklatLight group-hover:text-krem/70 text-sm leading-relaxed transition-colors duration-300">Diproses dengan standar kebersihan tinggi. No bug, no error, pure taste!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ CARA ORDER ============ -->
+    <section id="cara-order" class="py-16 sm:py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-14 fade-up">
+                <div class="inline-flex items-center gap-2 bg-marun/10 rounded-full px-4 py-1.5 mb-4">
+                    <i data-lucide="terminal" class="w-3.5 h-3.5 text-marun"></i>
+                    <span class="text-xs font-semibold text-marun uppercase tracking-wider">How to Order</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-coklat tracking-tight">
+                    Cara <span class="text-marun">Order</span>
+                </h2>
+                <p class="text-coklatLight mt-3 max-w-md mx-auto">Semudah klik, semanis rasa. 3 langkah aja!</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                <!-- Step 1 -->
+                <div class="text-center fade-up" style="transition-delay:0.1s">
+                    <div class="relative w-20 h-20 bg-marun rounded-3xl flex items-center justify-center mx-auto mb-5 shadow-lg shadow-marun/20 rotate-3 hover:rotate-0 transition-transform duration-300">
+                        <span class="text-kuning font-extrabold text-2xl">01</span>
+                    </div>
+                    <h3 class="font-bold text-lg text-coklat mb-2">Pilih Menu</h3>
+                    <p class="text-coklatLight text-sm leading-relaxed">Scroll menu di atas, pilih yang bikin ngiler. Bisa mix & match!</p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="text-center fade-up" style="transition-delay:0.2s">
+                    <div class="relative w-20 h-20 bg-kuning rounded-3xl flex items-center justify-center mx-auto mb-5 shadow-lg shadow-kuning/20 -rotate-3 hover:rotate-0 transition-transform duration-300">
+                        <span class="text-coklat font-extrabold text-2xl">02</span>
+                    </div>
+                    <h3 class="font-bold text-lg text-coklat mb-2">Chat WhatsApp</h3>
+                    <p class="text-coklatLight text-sm leading-relaxed">Klik tombol pesan, langsung terhubung ke kami. Konfirmasi order & alamat.</p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="text-center fade-up" style="transition-delay:0.3s">
+                    <div class="relative w-20 h-20 bg-marun rounded-3xl flex items-center justify-center mx-auto mb-5 shadow-lg shadow-marun/20 rotate-3 hover:rotate-0 transition-transform duration-300">
+                        <span class="text-kuning font-extrabold text-2xl">03</span>
+                    </div>
+                    <h3 class="font-bold text-lg text-coklat mb-2">Terima & Nikmati</h3>
+                    <p class="text-coklatLight text-sm leading-relaxed">Diantar cepat ke lokasimu. Tinggal duduk manis, santap!</p>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="text-center mt-12 fade-up" style="transition-delay:0.4s">
+                <a href="https://wa.me/6282172073426?text=Halo%20Tech%20Taste%20Hub%2C%20saya%20mau%20pesan!" target="_blank"
+                   class="inline-flex items-center gap-3 bg-marun text-krem px-10 py-4 rounded-full font-bold text-base hover:bg-marunDark hover:shadow-xl hover:shadow-marun/25 transition-all duration-300">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                    Pesan via WhatsApp
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ TESTIMONI ============ -->
+    <!-- <section id="testimoni" class="py-16 sm:py-24 bg-white relative">
+        <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-kuning/40 to-transparent"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-14 fade-up">
+                <div class="inline-flex items-center gap-2 bg-kuning/20 rounded-full px-4 py-1.5 mb-4">
+                    <i data-lucide="message-square" class="w-3.5 h-3.5 text-coklat"></i>
+                    <span class="text-xs font-semibold text-coklat uppercase tracking-wider">Testimonials</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-coklat tracking-tight">
+                    Kata <span class="text-marun">Mereka</span>
+                </h2>
+                <p class="text-coklatLight mt-3">Bukan cuma kami yang ngomong, pelanggan kami juga! 🔥</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                Testi 1
+                <div class="testi-card bg-krem rounded-3xl p-6 border border-kuning/10 fade-up" style="transition-delay:0.1s">
+                    <div class="flex gap-1 mb-3">
+                        <span class="text-kuning text-lg">⭐⭐⭐⭐⭐</span>
+                    </div>
+                    <p class="text-coklatLight text-sm leading-relaxed mb-5">"Risol Mayo-nya tuh gila! Kulitnya renyah, mayo-nya lumer banget. Sekali coba langsung ketagihan. Udah 3x order ga bosen-bosen 😍"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-marun rounded-full flex items-center justify-center text-kuning font-bold text-sm">DA</div>
+                        <div>
+                            <div class="font-semibold text-coklat text-sm">Dinda A.</div>
+                            <div class="text-coklatLight text-xs">Pelanggan Setia</div>
+                        </div>
+                    </div>
+                </div>
+
+                Testi 2
+                <div class="testi-card bg-krem rounded-3xl p-6 border border-kuning/10 fade-up" style="transition-delay:0.2s">
+                    <div class="flex gap-1 mb-3">
+                        <span class="text-kuning text-lg">⭐⭐⭐⭐⭐</span>
+                    </div>
+                    <p class="text-coklatLight text-sm leading-relaxed mb-5">"Pangsit Chili Oil-nya beneran pedes tapi nagih! Es Coklat-nya juga pas banget buat neutralizer. Combo terbaik sih 🌶️🥤"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-kuning rounded-full flex items-center justify-center text-coklat font-bold text-sm">RF</div>
+                        <div>
+                            <div class="font-semibold text-coklat text-sm">Rizky F.</div>
+                            <div class="text-coklatLight text-xs">Foodie Bandung</div>
+                        </div>
+                    </div>
+                </div>
+
+                Testi 3
+                <div class="testi-card bg-krem rounded-3xl p-6 border border-kuning/10 fade-up" style="transition-delay:0.3s">
+                    <div class="flex gap-1 mb-3">
+                        <span class="text-kuning text-lg">⭐⭐⭐⭐⭐</span>
+                    </div>
+                    <p class="text-coklatLight text-sm leading-relaxed mb-5">"Risol Coklat Keju-nya beneran lumer parah! Kejunya melar banget, coklatnya juga ga terlalu manis. Best dessert ever 💛"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-coklat rounded-full flex items-center justify-center text-kuning font-bold text-sm">SA</div>
+                        <div>
+                            <div class="font-semibold text-coklat text-sm">Salsabila A.</div>
+                            <div class="text-coklatLight text-xs">Mahasiswa Tel-U</div>
+                        </div>
+                    </div>
+                </div>
+
+                Testi 4
+                <div class="testi-card bg-krem rounded-3xl p-6 border border-kuning/10 fade-up" style="transition-delay:0.15s">
+                    <div class="flex gap-1 mb-3">
+                        <span class="text-kuning text-lg">⭐⭐⭐⭐⭐</span>
+                    </div>
+                    <p class="text-coklatLight text-sm leading-relaxed mb-5">"Delivery-nya cepet banget, cuma 15 menit udah sampe. Risol Mayo masih anget dan renyeh! Pelayanan top ⚡"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-marun rounded-full flex items-center justify-center text-kuning font-bold text-sm">MR</div>
+                        <div>
+                            <div class="font-semibold text-coklat text-sm">M. Rizal</div>
+                            <div class="text-coklatLight text-xs">Langganan</div>
+                        </div>
+                    </div>
+                </div>
+
+                Testi 5
+                <div class="testi-card bg-krem rounded-3xl p-6 border border-kuning/10 fade-up" style="transition-delay:0.25s">
+                    <div class="flex gap-1 mb-3">
+                        <span class="text-kuning text-lg">⭐⭐⭐⭐⭐</span>
+                    </div>
+                    <p class="text-coklatLight text-sm leading-relaxed mb-5">"Bundel hemat-nya worth it banget! 2 Risol + Es Coklat cuma 35rb. Buat makan bareng temen-temen paling pas 🎉"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-kuning rounded-full flex items-center justify-center text-coklat font-bold text-sm">NP</div>
+                        <div>
+                            <div class="font-semibold text-coklat text-sm">Nadia P.</div>
+                            <div class="text-coklatLight text-xs">Pelanggan Baru</div>
+                        </div>
+                    </div>
+                </div>
+
+                Testi 6
+                <div class="testi-card bg-krem rounded-3xl p-6 border border-kuning/10 fade-up" style="transition-delay:0.35s">
+                    <div class="flex gap-1 mb-3">
+                        <span class="text-kuning text-lg">⭐⭐⭐⭐⭐</span>
+                    </div>
+                    <p class="text-coklatLight text-sm leading-relaxed mb-5">"Es Coklat-nya pekat banget, ga kayak yang lain yang air doang. Dipake celupin Risol Mayo beneran combo mantap! 🔥"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-coklat rounded-full flex items-center justify-center text-kuning font-bold text-sm">AH</div>
+                        <div>
+                            <div class="font-semibold text-coklat text-sm">Andi H.</div>
+                            <div class="text-coklatLight text-xs">Choco Lover</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+    <!-- ============ CTA BANNER ============ -->
+    <section class="py-16 sm:py-20 bg-white relative overflow-hidden">
+        <div class="absolute inset-0  opacity-40"></div> <!--  sunburst -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-kuning/10 rounded-full blur-3xl"></div>
+
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 relative z-10 text-center fade-up">
+            <div class="bg-marun/95 backdrop-blur-sm rounded-[2rem] p-8 sm:p-12 lg:p-16 shadow-2xl shadow-marun/30 relative overflow-hidden">
+                <!-- Decorative -->
+                <div class="absolute top-0 right-0 w-40 h-40 bg-kuning/10 rounded-full blur-3xl"></div>
+                <div class="absolute bottom-0 left-0 w-32 h-32 bg-marunDark/50 rounded-full blur-2xl"></div>
+
+                <div class="relative z-10">
+                    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-krem tracking-tight mb-4">
+                        Udah Lapar <span class="text-kuning">Belum?</span>
+                    </h2>
+                    <p class="text-krem/70 text-base sm:text-lg mb-8 max-w-md mx-auto">Jangan biarkan perutmu "loading" lama. Pesan sekarang dan rasakan kelezatan hakiki!</p>
+
+                    <a href="https://wa.me/6282172073426?text=Halo%20Tech%20Taste%20Hub%2C%20saya%20mau%20pesan!" target="_blank"
+                       class="inline-flex items-center gap-3 bg-kuning text-coklat px-10 py-4 rounded-full font-bold text-base hover:bg-kuningDark hover:shadow-xl hover:shadow-kuning/30 transition-all duration-300">
+                        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        Pesan Sekarang — WhatsApp
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="bg-coklat text-krem/70 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+                <!-- Brand -->
+                <div class="lg:col-span-2">
+                    <a href="#" class="flex items-center gap-2 mb-4">
+                        <div class="w-10 h-10 bg-marun rounded-lg flex items-center justify-center">
+                            <span class="text-kuning font-extrabold text-lg">T</span>
+                        </div>
+                        <div class="leading-tight">
+                            <span class="font-bold text-krem text-base tracking-tight">Tech Taste</span>
+                            <span class="font-bold text-kuning text-base tracking-tight"> Hub</span>
+                        </div>
+                    </a>
+                    <p class="text-krem/50 text-sm leading-relaxed max-w-sm mb-5">Cita Rasa Tekno, Kelezatan Hakiki. Kulineran viral dengan sentuhan modern yang bikin nagih!</p>
+                    <div class="flex gap-3">
+                        <a href="https://instagram.com/techtastehub" target="_blank" class="w-10 h-10 bg-krem/10 rounded-full flex items-center justify-center hover:bg-kuning hover:text-coklat transition-all duration-300">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                        </a>
+                        <!-- <a href="#" class="w-10 h-10 bg-krem/10 rounded-full flex items-center justify-center hover:bg-kuning hover:text-coklat transition-all duration-300">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+                        </a> -->
+                        <a href="https://wa.me/6282172073426" target="_blank" class="w-10 h-10 bg-krem/10 rounded-full flex items-center justify-center hover:bg-green-500 hover:text-white transition-all duration-300">
+                            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="font-bold text-krem text-sm mb-4 uppercase tracking-wider">Quick Links</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="#home" class="text-krem/50 hover:text-kuning text-sm transition-colors duration-200">Home</a></li>
+                        <li><a href="#menu" class="text-krem/50 hover:text-kuning text-sm transition-colors duration-200">Menu Kami</a></li>
+                        <li><a href="#cara-order" class="text-krem/50 hover:text-kuning text-sm transition-colors duration-200">Cara Order</a></li>
+                        <li><a href="#testimoni" class="text-krem/50 hover:text-kuning text-sm transition-colors duration-200">Testimoni</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <h4 class="font-bold text-krem text-sm mb-4 uppercase tracking-wider">Kontak</h4>
+                    <ul class="space-y-2.5">
+                        <li class="flex items-start gap-2 text-krem/50 text-sm">
+                            <i data-lucide="map-pin" class="w-4 h-4 mt-0.5 text-kuning flex-shrink-0"></i>
+                            <span>Kampus B, Telkom University Jakarta</span>
+                        </li>
+                        <li class="flex items-center gap-2 text-krem/50 text-sm">
+                            <i data-lucide="phone" class="w-4 h-4 text-kuning flex-shrink-0"></i>
+                            <a href="https://wa.me/6282172073426" target="_blank" class="hover:text-kuning transition-colors">0821-7207-3426</a>
+                        </li>
+                        <li class="flex items-center gap-2 text-krem/50 text-sm">
+                            <i data-lucide="clock" class="w-4 h-4 text-kuning flex-shrink-0"></i>
+                            <span>8:00 - 21:00 WIB</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Divider -->
+            <div class="border-t border-krem/10 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+                <p class="text-krem/30 text-xs">© 2026 Tech Taste Hub. All rights reserved. Made with 💛 & ☕</p>
+                <a href="#home" class="text-krem/30 hover:text-kuning text-xs transition-colors flex items-center gap-1">
+                    <i data-lucide="arrow-up" class="w-3 h-3"></i> Kembali ke atas
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============ FLOATING WHATSAPP BUTTON ============ -->
+    <a href="https://wa.me/6282172073426?text=Halo%20Tech%20Taste%20Hub%2C%20saya%20mau%20pesan!" target="_blank"
+       class="fixed bottom-6 right-6 z-50 wa-pulse w-14 h-14 sm:w-16 sm:h-16 bg-green-500 rounded-full flex items-center justify-center shadow-xl shadow-green-500/30 hover:bg-green-600 hover:scale-110 transition-all duration-300"
+       title="Chat WhatsApp">
+        <svg class="w-7 h-7 sm:w-8 sm:h-8 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </a>
+
+    <!-- ============ TOAST NOTIFICATION ============ -->
+    <div id="toast" class="fixed top-24 right-6 z-50 bg-white rounded-2xl shadow-2xl p-4 border border-kuning/20 flex items-center gap-3 translate-x-[120%] transition-transform duration-500 max-w-xs">
+        <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+            <i data-lucide="check-circle" class="w-5 h-5 text-green-600"></i>
+        </div>
+        <div>
+            <div class="font-semibold text-coklat text-sm">Menu ditambahkan!</div>
+            <div class="text-coklatLight text-xs">Lanjut ke WhatsApp untuk checkout</div>
+        </div>
+    </div>
+
+
+    <!-- ============ JAVASCRIPT ============ -->
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // ========== NAVBAR SCROLL EFFECT ==========
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('nav-scrolled');
+            } else {
+                navbar.classList.remove('nav-scrolled');
+            }
+        });
+
+        // ========== MOBILE MENU ==========
+        const menuToggle = document.getElementById('menu-toggle');
+        const menuClose = document.getElementById('menu-close');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuOverlay = document.getElementById('menu-overlay');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        function openMenu() {
+            mobileMenu.classList.add('open');
+            menuOverlay.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMenu() {
+            mobileMenu.classList.remove('open');
+            menuOverlay.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        menuToggle.addEventListener('click', openMenu);
+        menuClose.addEventListener('click', closeMenu);
+        menuOverlay.addEventListener('click', closeMenu);
+        mobileLinks.forEach(link => link.addEventListener('click', closeMenu));
+
+        // ========== SCROLL ANIMATIONS ==========
+        const animatedElements = document.querySelectorAll('.fade-up, .fade-left, .fade-right, .scale-in');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        animatedElements.forEach(el => observer.observe(el));
+
+        // ========== MENU TAB FILTER ==========
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const menuCards = document.querySelectorAll('.menu-card');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active tab
+                tabBtns.forEach(b => {
+                    b.classList.remove('active');
+                    b.classList.add('text-coklat');
+                });
+                btn.classList.add('active');
+                btn.classList.remove('text-coklat');
+
+                const category = btn.dataset.category;
+
+                menuCards.forEach(card => {
+                    const cardCat = card.dataset.cat;
+                    if (category === 'semua' || cardCat === category) {
+                        card.style.display = '';
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(20px)';
+                        setTimeout(() => {
+                            card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, 50);
+                    } else {
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(20px)';
+                        setTimeout(() => {
+                            card.style.display = 'none';
+                        }, 400);
+                    }
+                });
+            });
+        });
+
+        // ========== TOAST NOTIFICATION ==========
+        const plusButtons = document.querySelectorAll('.menu-card a[href*="wa.me"]');
+        const toast = document.getElementById('toast');
+        let toastTimeout;
+
+        plusButtons.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                // Show toast
+                clearTimeout(toastTimeout);
+                toast.style.transform = 'translateX(0)';
+
+                toastTimeout = setTimeout(() => {
+                    toast.style.transform = 'translateX(120%)';
+                }, 3000);
+            });
+        });
+
+        // ========== SMOOTH SCROLL ==========
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // ========== COUNTER ANIMATION ==========
+        function animateCounter(el, target, suffix = '') {
+            let current = 0;
+            const increment = target / 40;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                el.textContent = Math.floor(current) + suffix;
+            }, 30);
+        }
+
+        // Observe hero stats
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const statEls = entry.target.querySelectorAll('.font-extrabold');
+                    statEls.forEach(el => {
+                        const text = el.textContent;
+                        if (text.includes('+')) {
+                            animateCounter(el, parseInt(text), '+');
+                        } else if (text.includes('.')) {
+                            el.textContent = '4.9'; // keep as is for decimal
+                        } else if (text.includes('min')) {
+                            animateCounter(el, parseInt(text), 'min');
+                        }
+                    });
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        const statsContainer = document.querySelector('.flex.gap-6');
+        if (statsContainer) statsObserver.observe(statsContainer);
+    </script>
+</body>
+</html>
