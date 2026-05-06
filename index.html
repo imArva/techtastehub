@@ -32,7 +32,6 @@
     <style>
         * { font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
 
-        /* Sunburst Background */
         .sunburst {
             background: repeating-conic-gradient(
                 from 0deg,
@@ -41,7 +40,6 @@
             );
         }
 
-        /* Animations */
         .fade-up {
             opacity: 0;
             transform: translateY(40px);
@@ -50,24 +48,6 @@
         .fade-up.visible {
             opacity: 1;
             transform: translateY(0);
-        }
-        .fade-left {
-            opacity: 0;
-            transform: translateX(-40px);
-            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
-        }
-        .fade-left.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
-        .fade-right {
-            opacity: 0;
-            transform: translateX(40px);
-            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
-        }
-        .fade-right.visible {
-            opacity: 1;
-            transform: translateX(0);
         }
         .scale-in {
             opacity: 0;
@@ -79,7 +59,6 @@
             transform: scale(1);
         }
 
-        /* Card Hover */
         .menu-card {
             transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
         }
@@ -88,7 +67,6 @@
             box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.2);
         }
 
-        /* Floating WhatsApp pulse */
         @keyframes pulse-ring {
             0% { transform: scale(1); opacity: 1; }
             100% { transform: scale(1.4); opacity: 0; }
@@ -103,20 +81,17 @@
             z-index: -1;
         }
 
-        /* Smooth nav bg */
         .nav-scrolled {
             background: rgba(255, 249, 227, 0.95) !important;
             backdrop-filter: blur(12px);
             box-shadow: 0 2px 20px rgba(62, 39, 35, 0.08);
         }
 
-        /* Tab active */
         .tab-btn.active {
             background: #A32323;
             color: #FFF9E3;
         }
 
-        /* Hero image shimmer */
         @keyframes shimmer {
             0%, 100% { transform: scale(1.02); }
             50% { transform: scale(1.06); }
@@ -125,7 +100,6 @@
             animation: shimmer 4s ease-in-out infinite;
         }
 
-        /* Marquee */
         @keyframes marquee {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
@@ -134,16 +108,6 @@
             animation: marquee 20s linear infinite;
         }
 
-        /* Testimonial card */
-        .testi-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .testi-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 30px -8px rgba(163, 35, 35, 0.15);
-        }
-
-        /* Mobile menu */
         .mobile-menu {
             transform: translateX(100%);
             transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
@@ -152,19 +116,108 @@
             transform: translateX(0);
         }
 
-        /* Sticky CTA */
-        .sticky-cta {
-            transition: all 0.3s ease;
-        }
-        .sticky-cta:hover {
-            transform: scale(1.05);
-        }
-
-        /* Scrollbar */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #FFF9E3; }
         ::-webkit-scrollbar-thumb { background: #F9C80E; border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: #E0B400; }
+
+        /* ===== CART STYLES ===== */
+        .qty-control { position: relative; }
+
+        .qty-active {
+            display: none;
+            align-items: center;
+            gap: 4px;
+        }
+        .qty-active.show {
+            display: flex;
+            animation: popIn 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .qty-add-btn.hide { display: none; }
+
+        @keyframes popIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .qty-btn-round {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            border: none;
+            line-height: 1;
+        }
+        .qty-btn-round:active { transform: scale(0.9); }
+
+        /* Cart floating button */
+        .cart-float {
+            transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .cart-float:hover { transform: scale(1.05); }
+        .cart-float.hidden-cart {
+            transform: scale(0);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Cart badge bounce */
+        @keyframes badgeBounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+        }
+        .badge-bounce { animation: badgeBounce 0.3s ease; }
+
+        /* Cart Drawer */
+        .cart-overlay {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .cart-overlay.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .cart-drawer {
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .cart-drawer.open {
+            transform: translateY(0);
+        }
+
+        /* Cart item */
+        .cart-item {
+            transition: all 0.3s ease;
+        }
+        .cart-item.removing {
+            opacity: 0;
+            transform: translateX(100%);
+            max-height: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+            margin-bottom: 0;
+            overflow: hidden;
+        }
+
+        /* Toast */
+        .toast-show {
+            transform: translateX(0) !important;
+        }
+
+        /* Name input */
+        .name-input:focus {
+            outline: none;
+            border-color: #A32323;
+            box-shadow: 0 0 0 3px rgba(163, 35, 35, 0.1);
+        }
     </style>
 </head>
 <body class="bg-krem text-coklat overflow-x-hidden">
@@ -173,36 +226,29 @@
     <nav id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16 sm:h-20">
-                <!-- Logo -->
                 <a href="#" class="flex items-center gap-2 group">
                     <div class="w-16 h-16 sm:w-16 sm:h-16 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                        <!-- <span class="text-kuning font-extrabold text-base sm:text-lg">T</span> -->
                          <img src="/img/TTH-Logo.png" alt="Logo Tech Taste Hub">
                     </div>
                     <div class="leading-tight">
                         <span class="font-bold text-marun text-sm sm:text-base tracking-tight">Tech Taste</span>
                         <span class="font-bold text-kuning text-sm sm:text-base tracking-tight"> Hub</span>
                     </div>
-                    
                 </a>
 
-                <!-- Desktop Nav -->
                 <div class="hidden md:flex items-center gap-8">
                     <a href="#home" class="text-coklat hover:text-marun font-medium transition-colors duration-200 text-sm">Home</a>
                     <a href="#menu" class="text-coklat hover:text-marun font-medium transition-colors duration-200 text-sm">Menu Kami</a>
                     <a href="#cara-order" class="text-coklat hover:text-marun font-medium transition-colors duration-200 text-sm">Cara Order</a>
-                    <a href="#testimoni" class="text-coklat hover:text-marun font-medium transition-colors duration-200 text-sm">Testimoni</a>
-                    <a href="https://wa.me/6282174508263?text=Halo%20Tech%20Taste%20Hub%2C%20saya%20mau%20pesan!" target="_blank"
+                    <a href="https://wa.me/6282172073426?text=Halo%20Tech%20Taste%20Hub%2C%20saya%20mau%20pesan!" target="_blank"
                        class="bg-marun text-krem px-5 py-2.5 rounded-full font-semibold text-sm hover:bg-marunDark hover:shadow-lg transition-all duration-300 flex items-center gap-2">
                         <i data-lucide="message-circle" class="w-4 h-4"></i>
                         Pesan Sekarang
                     </a>
                 </div>
 
-                <!-- Mobile Menu Button -->
                 <button id="menu-toggle" class="md:hidden p-2 text-coklat hover:text-marun transition-colors">
-                    <i data-lucide="menu" class="w-6 h-6" id="menu-icon-open"></i>
-                    <i data-lucide="x" class="w-6 h-6 hidden" id="menu-icon-close"></i>
+                    <i data-lucide="menu" class="w-6 h-6"></i>
                 </button>
             </div>
         </div>
@@ -218,8 +264,7 @@
                 <a href="#home" class="mobile-link text-lg font-semibold text-coklat hover:text-marun py-2 border-b border-kuning/30 transition-colors">Home</a>
                 <a href="#menu" class="mobile-link text-lg font-semibold text-coklat hover:text-marun py-2 border-b border-kuning/30 transition-colors">Menu Kami</a>
                 <a href="#cara-order" class="mobile-link text-lg font-semibold text-coklat hover:text-marun py-2 border-b border-kuning/30 transition-colors">Cara Order</a>
-                <a href="#testimoni" class="mobile-link text-lg font-semibold text-coklat hover:text-marun py-2 border-b border-kuning/30 transition-colors">Testimoni</a>
-                <a href="https://wa.me/6282174508263?text=Halo%20Tech%20Taste%20Hub%2C%20saya%20mau%20pesan!" target="_blank"
+                <a href="https://wa.me/6282172073426?text=Halo%20Tech%20Taste%20Hub%2C%20saya%20mau%20pesan!" target="_blank"
                    class="bg-marun text-krem px-5 py-3 rounded-full font-semibold text-center mt-4 hover:bg-marunDark transition-all flex items-center justify-center gap-2">
                     <i data-lucide="message-circle" class="w-5 h-5"></i>
                     Pesan Sekarang
@@ -228,21 +273,16 @@
         </div>
     </nav>
 
-    <!-- Mobile Menu Overlay -->
     <div id="menu-overlay" class="fixed inset-0 bg-coklat/30 backdrop-blur-sm z-40 hidden md:hidden"></div>
 
     <!-- ============ HERO SECTION ============ -->
     <section id="home" class="relative min-h-screen flex items-center pt-20 overflow-hidden">
-        <!-- Sunburst BG -->
         <div class="sunburst absolute inset-0 opacity-60"></div>
-
-        <!-- Decorative circles -->
         <div class="absolute top-20 -left-32 w-96 h-96 bg-kuning/10 rounded-full blur-3xl"></div>
         <div class="absolute bottom-10 -right-32 w-80 h-80 bg-marun/10 rounded-full blur-3xl"></div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-                <!-- Text -->
                 <div class="fade-up order-2 lg:order-1 text-center lg:text-left">
                     <div class="inline-flex items-center gap-2 bg-kuning/20 border border-kuning/40 rounded-full px-4 py-1.5 mb-6">
                         <span class="w-2 h-2 bg-kuning rounded-full animate-pulse"></span>
@@ -270,35 +310,14 @@
                             Cara Order
                         </a>
                     </div>
-
-                    <!-- Mini Stats -->
-                    <!-- <div class="flex gap-6 mt-10 justify-center lg:justify-start">
-                        <div class="text-center">
-                            <div class="text-2xl sm:text-3xl font-extrabold text-marun">500+</div>
-                            <div class="text-xs text-coklatLight font-medium">Pesanan/Bulan</div>
-                        </div>
-                        <div class="w-px bg-coklat/15"></div>
-                        <div class="text-center">
-                            <div class="text-2xl sm:text-3xl font-extrabold text-marun">4.9</div>
-                            <div class="text-xs text-coklatLight font-medium">⭐ Rating</div>
-                        </div>
-                        <div class="w-px bg-coklat/15"></div>
-                        <div class="text-center">
-                            <div class="text-2xl sm:text-3xl font-extrabold text-marun">15min</div>
-                            <div class="text-xs text-coklatLight font-medium">Delivery</div>
-                        </div>
-                    </div> -->
                 </div>
 
-                <!-- Hero Images -->
                 <div class="order-1 lg:order-2 flex justify-center fade-up" style="transition-delay: 0.2s">
                     <div class="relative">
-                        <!-- Main food image -->
                         <div class="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-[420px] lg:h-[420px] rounded-full overflow-hidden border-4 border-kuning/40 shadow-2xl shadow-kuning/20">
                             <img src="/img/risol-mayo.jpg" alt="Risol Mayo Tech Taste Hub"
                                  class="w-full h-full object-cover hero-img-float">
                         </div>
-                        <!-- Floating card 1 -->
                         <div class="absolute -bottom-4 -left-6 sm:-left-10 bg-white rounded-2xl p-3 shadow-xl border border-kuning/20 scale-in" style="transition-delay: 0.6s">
                             <div class="flex items-center gap-2">
                                 <div class="w-10 h-10 bg-marun/10 rounded-full flex items-center justify-center">
@@ -310,24 +329,14 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Floating card 2 -->
                         <div class="absolute -top-4 -right-4 sm:-right-10 bg-white rounded-2xl p-3 shadow-xl border border-kuning/20 scale-in" style="transition-delay: 0.8s">
-                            <!-- <div class="flex items-center gap-2">
-                                <div class="w-10 h-10 bg-kuning/20 rounded-full flex items-center justify-center">
-                                    <i data-lucide="star" class="w-5 h-5 text-kuning"></i>
-                                </div>
-                                <div>
-                                    <div class="text-xs font-bold text-coklat">4.9 / 5.0</div>
-                                    <div class="text-[10px] text-coklatLight">200+ Review</div>
-                                </div>
-                            </div> -->
                             <div class="flex items-center gap-2">
-                                <div class="w-10 h-10 bg-marun/10 rounded-full flex items-center justify-center">
-                                    <i data-lucide="flame" class="w-5 h-5 text-marun"></i>
+                                <div class="w-10 h-10 bg-kuning/20 rounded-full flex items-center justify-center">
+                                    <i data-lucide="shopping-bag" class="w-5 h-5 text-kuning"></i>
                                 </div>
                                 <div>
-                                    <div class="text-xs font-bold text-coklat">Best Seller!</div>
-                                    <div class="text-[10px] text-coklatLight">Risol Mayo</div>
+                                    <div class="text-xs font-bold text-coklat">Tambah ke</div>
+                                    <div class="text-[10px] text-coklatLight">Keranjang!</div>
                                 </div>
                             </div>
                         </div>
@@ -336,7 +345,6 @@
             </div>
         </div>
 
-        <!-- Scroll indicator -->
         <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 opacity-50">
             <span class="text-[10px] uppercase tracking-widest text-coklatLight">Scroll</span>
             <div class="w-5 h-8 border-2 border-coklat/30 rounded-full flex justify-center pt-1">
@@ -358,7 +366,6 @@
             <span class="text-krem/60">•</span>
             <span class="text-kuning font-bold text-sm tracking-wide">🔥 FRESHLY MADE DAILY</span>
             <span class="text-krem/60">•</span>
-            <!-- Duplicate for seamless loop -->
             <span class="text-kuning font-bold text-sm tracking-wide">🌶️ PANGSIT CHILI OIL</span>
             <span class="text-krem/60">•</span>
             <span class="text-kuning font-bold text-sm tracking-wide">🧀 RISOL COKLAT KEJU</span>
@@ -376,7 +383,6 @@
         <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-kuning/40 to-transparent"></div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Section Header -->
             <div class="text-center mb-12 fade-up">
                 <div class="inline-flex items-center gap-2 bg-marun/10 rounded-full px-4 py-1.5 mb-4">
                     <i data-lucide="code-2" class="w-3.5 h-3.5 text-marun"></i>
@@ -399,7 +405,7 @@
             <div id="menu-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
 
                 <!-- Card 1: Risol Mayo -->
-                <div class="menu-card bg-white rounded-3xl overflow-hidden shadow-lg border border-kuning/10 fade-up" data-cat="savory" style="transition-delay:0.1s">
+                <div class="menu-card bg-white rounded-3xl overflow-hidden shadow-lg border border-kuning/10 fade-up" data-cat="savory" data-id="risol-mayo" style="transition-delay:0.1s">
                     <div class="relative overflow-hidden">
                         <img src="/img/risol-mayo.jpg" alt="Risol Mayo"
                              class="w-full h-48 sm:h-52 object-cover transition-transform duration-500 hover:scale-110">
@@ -411,16 +417,22 @@
                         <p class="text-coklatLight text-sm leading-relaxed mb-3">Kulit renyah, isian smoke beef & mayo premium yang lumer di mulut.</p>
                         <div class="flex items-center justify-between">
                             <span class="text-xl font-extrabold text-marun">Rp 5.000</span>
-                            <a href="https://wa.me/6282174508263?text=Halo%2C%20saya%20mau%20pesan%20Risol%20Mayo!" target="_blank"
-                               class="w-10 h-10 bg-kuning rounded-full flex items-center justify-center hover:bg-kuningDark transition-colors duration-200 shadow-md">
-                                <i data-lucide="plus" class="w-5 h-5 text-coklat"></i>
-                            </a>
+                            <div class="qty-control">
+                                <button class="qty-add-btn w-10 h-10 bg-kuning rounded-full flex items-center justify-center hover:bg-kuningDark transition-colors duration-200 shadow-md cursor-pointer" onclick="addToCart('risol-mayo')">
+                                    <i data-lucide="plus" class="w-5 h-5 text-coklat"></i>
+                                </button>
+                                <div class="qty-active" id="qty-risol-mayo">
+                                    <button class="qty-btn-round bg-marun text-krem hover:bg-marunDark" onclick="decrementCart('risol-mayo')">−</button>
+                                    <span class="w-7 text-center font-bold text-coklat text-sm qty-count">0</span>
+                                    <button class="qty-btn-round bg-marun text-krem hover:bg-marunDark" onclick="addToCart('risol-mayo')">+</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Card 2: Pangsit Chili Oil -->
-                <div class="menu-card bg-white rounded-3xl overflow-hidden shadow-lg border border-kuning/10 fade-up" data-cat="savory" style="transition-delay:0.2s">
+                <div class="menu-card bg-white rounded-3xl overflow-hidden shadow-lg border border-kuning/10 fade-up" data-cat="savory" data-id="pangsit-chili-oil" style="transition-delay:0.2s">
                     <div class="relative overflow-hidden">
                         <img src="/img/pangsit.jpg" alt="Pangsit Chili Oil"
                              class="w-full h-48 sm:h-52 object-cover transition-transform duration-500 hover:scale-110">
@@ -432,16 +444,22 @@
                         <p class="text-coklatLight text-sm leading-relaxed mb-3">Pangsit kenyal dengan bumbu chili oil rahasia Tech Taste. Pedas nampol!</p>
                         <div class="flex items-center justify-between">
                             <span class="text-xl font-extrabold text-marun">Rp 10.000</span>
-                            <a href="https://wa.me/6282174508263?text=Halo%2C%20saya%20mau%20pesan%20Pangsit%20Chili%20Oil!" target="_blank"
-                               class="w-10 h-10 bg-kuning rounded-full flex items-center justify-center hover:bg-kuningDark transition-colors duration-200 shadow-md">
-                                <i data-lucide="plus" class="w-5 h-5 text-coklat"></i>
-                            </a>
+                            <div class="qty-control">
+                                <button class="qty-add-btn w-10 h-10 bg-kuning rounded-full flex items-center justify-center hover:bg-kuningDark transition-colors duration-200 shadow-md cursor-pointer" onclick="addToCart('pangsit-chili-oil')">
+                                    <i data-lucide="plus" class="w-5 h-5 text-coklat"></i>
+                                </button>
+                                <div class="qty-active" id="qty-pangsit-chili-oil">
+                                    <button class="qty-btn-round bg-marun text-krem hover:bg-marunDark" onclick="decrementCart('pangsit-chili-oil')">−</button>
+                                    <span class="w-7 text-center font-bold text-coklat text-sm qty-count">0</span>
+                                    <button class="qty-btn-round bg-marun text-krem hover:bg-marunDark" onclick="addToCart('pangsit-chili-oil')">+</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Card 3: Risol Coklat Keju -->
-                <div class="menu-card bg-white rounded-3xl overflow-hidden shadow-lg border border-kuning/10 fade-up" data-cat="sweet" style="transition-delay:0.3s">
+                <div class="menu-card bg-white rounded-3xl overflow-hidden shadow-lg border border-kuning/10 fade-up" data-cat="sweet" data-id="risol-coklat-keju" style="transition-delay:0.3s">
                     <div class="relative overflow-hidden">
                         <img src="/img/risol-ck.jpg" alt="Risol Coklat Keju"
                              class="w-full h-48 sm:h-52 object-cover transition-transform duration-500 hover:scale-110">
@@ -453,16 +471,22 @@
                         <p class="text-coklatLight text-sm leading-relaxed mb-3">Lumeran coklat premium dipadu gurihnya keju mozzarella. Manis & salto!</p>
                         <div class="flex items-center justify-between">
                             <span class="text-xl font-extrabold text-marun">Rp 4.000</span>
-                            <a href="https://wa.me/6282174508263?text=Halo%2C%20saya%20mau%20pesan%20Risol%20Coklat%20Keju!" target="_blank"
-                               class="w-10 h-10 bg-kuning rounded-full flex items-center justify-center hover:bg-kuningDark transition-colors duration-200 shadow-md">
-                                <i data-lucide="plus" class="w-5 h-5 text-coklat"></i>
-                            </a>
+                            <div class="qty-control">
+                                <button class="qty-add-btn w-10 h-10 bg-kuning rounded-full flex items-center justify-center hover:bg-kuningDark transition-colors duration-200 shadow-md cursor-pointer" onclick="addToCart('risol-coklat-keju')">
+                                    <i data-lucide="plus" class="w-5 h-5 text-coklat"></i>
+                                </button>
+                                <div class="qty-active" id="qty-risol-coklat-keju">
+                                    <button class="qty-btn-round bg-marun text-krem hover:bg-marunDark" onclick="decrementCart('risol-coklat-keju')">−</button>
+                                    <span class="w-7 text-center font-bold text-coklat text-sm qty-count">0</span>
+                                    <button class="qty-btn-round bg-marun text-krem hover:bg-marunDark" onclick="addToCart('risol-coklat-keju')">+</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Card 4: Es Coklat -->
-                <div class="menu-card bg-white rounded-3xl overflow-hidden shadow-lg border border-kuning/10 fade-up" data-cat="sweet" style="transition-delay:0.4s">
+                <div class="menu-card bg-white rounded-3xl overflow-hidden shadow-lg border border-kuning/10 fade-up" data-cat="sweet" data-id="es-coklat" style="transition-delay:0.4s">
                     <div class="relative overflow-hidden">
                         <img src="/img/es-coklat.jpg" alt="Es Coklat"
                              class="w-full h-48 sm:h-52 object-cover transition-transform duration-500 hover:scale-110">
@@ -474,31 +498,20 @@
                         <p class="text-coklatLight text-sm leading-relaxed mb-3">Coklat pekat premium, tidak terlalu manis, cocok buat celupan risol!</p>
                         <div class="flex items-center justify-between">
                             <span class="text-xl font-extrabold text-marun">Rp 10.000</span>
-                            <a href="https://wa.me/6282174508263?text=Halo%2C%20saya%20mau%20pesan%20Es%20Coklat!" target="_blank"
-                               class="w-10 h-10 bg-kuning rounded-full flex items-center justify-center hover:bg-kuningDark transition-colors duration-200 shadow-md">
-                                <i data-lucide="plus" class="w-5 h-5 text-coklat"></i>
-                            </a>
+                            <div class="qty-control">
+                                <button class="qty-add-btn w-10 h-10 bg-kuning rounded-full flex items-center justify-center hover:bg-kuningDark transition-colors duration-200 shadow-md cursor-pointer" onclick="addToCart('es-coklat')">
+                                    <i data-lucide="plus" class="w-5 h-5 text-coklat"></i>
+                                </button>
+                                <div class="qty-active" id="qty-es-coklat">
+                                    <button class="qty-btn-round bg-marun text-krem hover:bg-marunDark" onclick="decrementCart('es-coklat')">−</button>
+                                    <span class="w-7 text-center font-bold text-coklat text-sm qty-count">0</span>
+                                    <button class="qty-btn-round bg-marun text-krem hover:bg-marunDark" onclick="addToCart('es-coklat')">+</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Promo Banner -->
-            <!-- <div class="mt-12 bg-gradient-to-r from-marun to-marunDark rounded-3xl p-6 sm:p-8 flex flex-col sm:flex-row items-center gap-6 fade-up" style="transition-delay:0.2s">
-                <div class="flex-shrink-0">
-                    <div class="w-16 h-16 sm:w-20 sm:h-20 bg-kuning rounded-2xl flex items-center justify-center">
-                        <i data-lucide="percent" class="w-8 h-8 sm:w-10 sm:h-10 text-coklat"></i>
-                    </div>
-                </div>
-                <div class="text-center sm:text-left flex-1">
-                    <h3 class="text-xl sm:text-2xl font-bold text-kuning mb-1">Bundle Hemat! 🎉</h3>
-                    <p class="text-krem/80 text-sm sm:text-base">Pesan 2 Risol + 1 Es Coklat cuma <strong class="text-kuning text-lg">Rp 35.000</strong> (hemat Rp 5.000)</p>
-                </div>
-                <a href="https://wa.me/6282174508263?text=Halo%2C%20saya%20mau%20pesan%20Bundle%20Hemat!" target="_blank"
-                   class="bg-kuning text-coklat px-6 py-3 rounded-full font-bold text-sm hover:bg-kuningDark transition-all duration-300 whitespace-nowrap shadow-lg">
-                    Pesan Bundle!
-                </a>
-            </div> -->
         </div>
     </section>
 
@@ -518,7 +531,6 @@
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Feature 1 -->
                 <div class="bg-krem rounded-3xl p-6 text-center group hover:bg-marun transition-all duration-500 fade-up" style="transition-delay:0.1s">
                     <div class="w-16 h-16 bg-kuning/20 group-hover:bg-kuning/30 rounded-2xl flex items-center justify-center mx-auto mb-5 transition-colors duration-300">
                         <i data-lucide="gem" class="w-7 h-7 text-marun group-hover:text-kuning transition-colors duration-300"></i>
@@ -527,7 +539,6 @@
                     <p class="text-coklatLight group-hover:text-krem/70 text-sm leading-relaxed transition-colors duration-300">"Source code" rasa kami berasal dari bahan pilihan berkualitas tinggi.</p>
                 </div>
 
-                <!-- Feature 2 -->
                 <div class="bg-krem rounded-3xl p-6 text-center group hover:bg-marun transition-all duration-500 fade-up" style="transition-delay:0.2s">
                     <div class="w-16 h-16 bg-kuning/20 group-hover:bg-kuning/30 rounded-2xl flex items-center justify-center mx-auto mb-5 transition-colors duration-300">
                         <i data-lucide="clock" class="w-7 h-7 text-marun group-hover:text-kuning transition-colors duration-300"></i>
@@ -536,7 +547,6 @@
                     <p class="text-coklatLight group-hover:text-krem/70 text-sm leading-relaxed transition-colors duration-300">Dibuat setiap hari sesuai pesanan, bukan stok basi. Fresh guarantee!</p>
                 </div>
 
-                <!-- Feature 3 -->
                 <div class="bg-krem rounded-3xl p-6 text-center group hover:bg-marun transition-all duration-500 fade-up" style="transition-delay:0.3s">
                     <div class="w-16 h-16 bg-kuning/20 group-hover:bg-kuning/30 rounded-2xl flex items-center justify-center mx-auto mb-5 transition-colors duration-300">
                         <i data-lucide="zap" class="w-7 h-7 text-marun group-hover:text-kuning transition-colors duration-300"></i>
@@ -545,7 +555,6 @@
                     <p class="text-coklatLight group-hover:text-krem/70 text-sm leading-relaxed transition-colors duration-300">Sampai di tanganmu sebelum "loading" lapar berakhir. Cepat & aman!</p>
                 </div>
 
-                <!-- Feature 4 -->
                 <div class="bg-krem rounded-3xl p-6 text-center group hover:bg-marun transition-all duration-500 fade-up" style="transition-delay:0.4s">
                     <div class="w-16 h-16 bg-kuning/20 group-hover:bg-kuning/30 rounded-2xl flex items-center justify-center mx-auto mb-5 transition-colors duration-300">
                         <i data-lucide="shield-check" class="w-7 h-7 text-marun group-hover:text-kuning transition-colors duration-300"></i>
@@ -572,163 +581,39 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-                <!-- Step 1 -->
                 <div class="text-center fade-up" style="transition-delay:0.1s">
                     <div class="relative w-20 h-20 bg-marun rounded-3xl flex items-center justify-center mx-auto mb-5 shadow-lg shadow-marun/20 rotate-3 hover:rotate-0 transition-transform duration-300">
                         <span class="text-kuning font-extrabold text-2xl">01</span>
                     </div>
                     <h3 class="font-bold text-lg text-coklat mb-2">Pilih Menu</h3>
-                    <p class="text-coklatLight text-sm leading-relaxed">Scroll menu di atas, pilih yang bikin ngiler. Bisa mix & match!</p>
+                    <p class="text-coklatLight text-sm leading-relaxed">Klik tombol <strong class="text-marun">+</strong> pada menu, atur jumlah yang kamu mau.</p>
                 </div>
 
-                <!-- Step 2 -->
                 <div class="text-center fade-up" style="transition-delay:0.2s">
                     <div class="relative w-20 h-20 bg-kuning rounded-3xl flex items-center justify-center mx-auto mb-5 shadow-lg shadow-kuning/20 -rotate-3 hover:rotate-0 transition-transform duration-300">
                         <span class="text-coklat font-extrabold text-2xl">02</span>
                     </div>
-                    <h3 class="font-bold text-lg text-coklat mb-2">Chat WhatsApp</h3>
-                    <p class="text-coklatLight text-sm leading-relaxed">Klik tombol pesan, langsung terhubung ke kami. Konfirmasi order & alamat.</p>
+                    <h3 class="font-bold text-lg text-coklat mb-2">Cek Keranjang</h3>
+                    <p class="text-coklatLight text-sm leading-relaxed">Klik ikon keranjang, masukkan nama kamu, lalu klik tombol Pesan.</p>
                 </div>
 
-                <!-- Step 3 -->
                 <div class="text-center fade-up" style="transition-delay:0.3s">
                     <div class="relative w-20 h-20 bg-marun rounded-3xl flex items-center justify-center mx-auto mb-5 shadow-lg shadow-marun/20 rotate-3 hover:rotate-0 transition-transform duration-300">
                         <span class="text-kuning font-extrabold text-2xl">03</span>
                     </div>
                     <h3 class="font-bold text-lg text-coklat mb-2">Terima & Nikmati</h3>
-                    <p class="text-coklatLight text-sm leading-relaxed">Diantar cepat ke lokasimu. Tinggal duduk manis, santap!</p>
+                    <p class="text-coklatLight text-sm leading-relaxed">Pesanan otomatis dikirim ke WhatsApp kami. Tinggal tunggu diantarr!</p>
                 </div>
-            </div>
-
-            <!-- CTA -->
-            <div class="text-center mt-12 fade-up" style="transition-delay:0.4s">
-                <a href="https://wa.me/6282174508263?text=Halo%20Tech%20Taste%20Hub%2C%20saya%20mau%20pesan!" target="_blank"
-                   class="inline-flex items-center gap-3 bg-marun text-krem px-10 py-4 rounded-full font-bold text-base hover:bg-marunDark hover:shadow-xl hover:shadow-marun/25 transition-all duration-300">
-                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                    Pesan via WhatsApp
-                </a>
             </div>
         </div>
     </section>
 
-    <!-- ============ TESTIMONI ============ -->
-    <!-- <section id="testimoni" class="py-16 sm:py-24 bg-white relative">
-        <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-kuning/40 to-transparent"></div>
-
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-14 fade-up">
-                <div class="inline-flex items-center gap-2 bg-kuning/20 rounded-full px-4 py-1.5 mb-4">
-                    <i data-lucide="message-square" class="w-3.5 h-3.5 text-coklat"></i>
-                    <span class="text-xs font-semibold text-coklat uppercase tracking-wider">Testimonials</span>
-                </div>
-                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-coklat tracking-tight">
-                    Kata <span class="text-marun">Mereka</span>
-                </h2>
-                <p class="text-coklatLight mt-3">Bukan cuma kami yang ngomong, pelanggan kami juga! 🔥</p>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                Testi 1
-                <div class="testi-card bg-krem rounded-3xl p-6 border border-kuning/10 fade-up" style="transition-delay:0.1s">
-                    <div class="flex gap-1 mb-3">
-                        <span class="text-kuning text-lg">⭐⭐⭐⭐⭐</span>
-                    </div>
-                    <p class="text-coklatLight text-sm leading-relaxed mb-5">"Risol Mayo-nya tuh gila! Kulitnya renyah, mayo-nya lumer banget. Sekali coba langsung ketagihan. Udah 3x order ga bosen-bosen 😍"</p>
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 bg-marun rounded-full flex items-center justify-center text-kuning font-bold text-sm">DA</div>
-                        <div>
-                            <div class="font-semibold text-coklat text-sm">Dinda A.</div>
-                            <div class="text-coklatLight text-xs">Pelanggan Setia</div>
-                        </div>
-                    </div>
-                </div>
-
-                Testi 2
-                <div class="testi-card bg-krem rounded-3xl p-6 border border-kuning/10 fade-up" style="transition-delay:0.2s">
-                    <div class="flex gap-1 mb-3">
-                        <span class="text-kuning text-lg">⭐⭐⭐⭐⭐</span>
-                    </div>
-                    <p class="text-coklatLight text-sm leading-relaxed mb-5">"Pangsit Chili Oil-nya beneran pedes tapi nagih! Es Coklat-nya juga pas banget buat neutralizer. Combo terbaik sih 🌶️🥤"</p>
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 bg-kuning rounded-full flex items-center justify-center text-coklat font-bold text-sm">RF</div>
-                        <div>
-                            <div class="font-semibold text-coklat text-sm">Rizky F.</div>
-                            <div class="text-coklatLight text-xs">Foodie Bandung</div>
-                        </div>
-                    </div>
-                </div>
-
-                Testi 3
-                <div class="testi-card bg-krem rounded-3xl p-6 border border-kuning/10 fade-up" style="transition-delay:0.3s">
-                    <div class="flex gap-1 mb-3">
-                        <span class="text-kuning text-lg">⭐⭐⭐⭐⭐</span>
-                    </div>
-                    <p class="text-coklatLight text-sm leading-relaxed mb-5">"Risol Coklat Keju-nya beneran lumer parah! Kejunya melar banget, coklatnya juga ga terlalu manis. Best dessert ever 💛"</p>
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 bg-coklat rounded-full flex items-center justify-center text-kuning font-bold text-sm">SA</div>
-                        <div>
-                            <div class="font-semibold text-coklat text-sm">Salsabila A.</div>
-                            <div class="text-coklatLight text-xs">Mahasiswa Tel-U</div>
-                        </div>
-                    </div>
-                </div>
-
-                Testi 4
-                <div class="testi-card bg-krem rounded-3xl p-6 border border-kuning/10 fade-up" style="transition-delay:0.15s">
-                    <div class="flex gap-1 mb-3">
-                        <span class="text-kuning text-lg">⭐⭐⭐⭐⭐</span>
-                    </div>
-                    <p class="text-coklatLight text-sm leading-relaxed mb-5">"Delivery-nya cepet banget, cuma 15 menit udah sampe. Risol Mayo masih anget dan renyeh! Pelayanan top ⚡"</p>
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 bg-marun rounded-full flex items-center justify-center text-kuning font-bold text-sm">MR</div>
-                        <div>
-                            <div class="font-semibold text-coklat text-sm">M. Rizal</div>
-                            <div class="text-coklatLight text-xs">Langganan</div>
-                        </div>
-                    </div>
-                </div>
-
-                Testi 5
-                <div class="testi-card bg-krem rounded-3xl p-6 border border-kuning/10 fade-up" style="transition-delay:0.25s">
-                    <div class="flex gap-1 mb-3">
-                        <span class="text-kuning text-lg">⭐⭐⭐⭐⭐</span>
-                    </div>
-                    <p class="text-coklatLight text-sm leading-relaxed mb-5">"Bundel hemat-nya worth it banget! 2 Risol + Es Coklat cuma 35rb. Buat makan bareng temen-temen paling pas 🎉"</p>
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 bg-kuning rounded-full flex items-center justify-center text-coklat font-bold text-sm">NP</div>
-                        <div>
-                            <div class="font-semibold text-coklat text-sm">Nadia P.</div>
-                            <div class="text-coklatLight text-xs">Pelanggan Baru</div>
-                        </div>
-                    </div>
-                </div>
-
-                Testi 6
-                <div class="testi-card bg-krem rounded-3xl p-6 border border-kuning/10 fade-up" style="transition-delay:0.35s">
-                    <div class="flex gap-1 mb-3">
-                        <span class="text-kuning text-lg">⭐⭐⭐⭐⭐</span>
-                    </div>
-                    <p class="text-coklatLight text-sm leading-relaxed mb-5">"Es Coklat-nya pekat banget, ga kayak yang lain yang air doang. Dipake celupin Risol Mayo beneran combo mantap! 🔥"</p>
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 bg-coklat rounded-full flex items-center justify-center text-kuning font-bold text-sm">AH</div>
-                        <div>
-                            <div class="font-semibold text-coklat text-sm">Andi H.</div>
-                            <div class="text-coklatLight text-xs">Choco Lover</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> -->
-
     <!-- ============ CTA BANNER ============ -->
     <section class="py-16 sm:py-20 bg-white relative overflow-hidden">
-        <div class="absolute inset-0  opacity-40"></div> <!--  sunburst -->
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-kuning/10 rounded-full blur-3xl"></div>
 
         <div class="max-w-4xl mx-auto px-4 sm:px-6 relative z-10 text-center fade-up">
             <div class="bg-marun/95 backdrop-blur-sm rounded-[2rem] p-8 sm:p-12 lg:p-16 shadow-2xl shadow-marun/30 relative overflow-hidden">
-                <!-- Decorative -->
                 <div class="absolute top-0 right-0 w-40 h-40 bg-kuning/10 rounded-full blur-3xl"></div>
                 <div class="absolute bottom-0 left-0 w-32 h-32 bg-marunDark/50 rounded-full blur-2xl"></div>
 
@@ -736,12 +621,12 @@
                     <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-krem tracking-tight mb-4">
                         Udah Lapar <span class="text-kuning">Belum?</span>
                     </h2>
-                    <p class="text-krem/70 text-base sm:text-lg mb-8 max-w-md mx-auto">Jangan biarkan perutmu "loading" lama. Pesan sekarang dan rasakan kelezatan hakiki!</p>
+                    <p class="text-krem/70 text-base sm:text-lg mb-8 max-w-md mx-auto">Jangan biarkan perutmu "loading" lama. Pilih menu, masukkan ke keranjang, dan pesan sekarang!</p>
 
-                    <a href="https://wa.me/6282174508263?text=Halo%20Tech%20Taste%20Hub%2C%20saya%20mau%20pesan!" target="_blank"
+                    <a href="#menu"
                        class="inline-flex items-center gap-3 bg-kuning text-coklat px-10 py-4 rounded-full font-bold text-base hover:bg-kuningDark hover:shadow-xl hover:shadow-kuning/30 transition-all duration-300">
-                        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                        Pesan Sekarang — WhatsApp
+                        <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+                        Pilih Menu Sekarang
                     </a>
                 </div>
             </div>
@@ -752,7 +637,6 @@
     <footer class="bg-coklat text-krem/70 pt-16 pb-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
-                <!-- Brand -->
                 <div class="lg:col-span-2">
                     <a href="#" class="flex items-center gap-2 mb-4">
                         <div class="w-10 h-10 bg-marun rounded-lg flex items-center justify-center">
@@ -768,27 +652,21 @@
                         <a href="https://instagram.com/techtastehub" target="_blank" class="w-10 h-10 bg-krem/10 rounded-full flex items-center justify-center hover:bg-kuning hover:text-coklat transition-all duration-300">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
                         </a>
-                        <!-- <a href="#" class="w-10 h-10 bg-krem/10 rounded-full flex items-center justify-center hover:bg-kuning hover:text-coklat transition-all duration-300">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
-                        </a> -->
-                        <a href="https://wa.me/6282174508263" target="_blank" class="w-10 h-10 bg-krem/10 rounded-full flex items-center justify-center hover:bg-green-500 hover:text-white transition-all duration-300">
+                        <a href="https://wa.me/6282172073426" target="_blank" class="w-10 h-10 bg-krem/10 rounded-full flex items-center justify-center hover:bg-green-500 hover:text-white transition-all duration-300">
                             <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
                         </a>
                     </div>
                 </div>
 
-                <!-- Quick Links -->
                 <div>
                     <h4 class="font-bold text-krem text-sm mb-4 uppercase tracking-wider">Quick Links</h4>
                     <ul class="space-y-2.5">
                         <li><a href="#home" class="text-krem/50 hover:text-kuning text-sm transition-colors duration-200">Home</a></li>
                         <li><a href="#menu" class="text-krem/50 hover:text-kuning text-sm transition-colors duration-200">Menu Kami</a></li>
                         <li><a href="#cara-order" class="text-krem/50 hover:text-kuning text-sm transition-colors duration-200">Cara Order</a></li>
-                        <li><a href="#testimoni" class="text-krem/50 hover:text-kuning text-sm transition-colors duration-200">Testimoni</a></li>
                     </ul>
                 </div>
 
-                <!-- Contact -->
                 <div>
                     <h4 class="font-bold text-krem text-sm mb-4 uppercase tracking-wider">Kontak</h4>
                     <ul class="space-y-2.5">
@@ -798,7 +676,7 @@
                         </li>
                         <li class="flex items-center gap-2 text-krem/50 text-sm">
                             <i data-lucide="phone" class="w-4 h-4 text-kuning flex-shrink-0"></i>
-                            <a href="https://wa.me/6282174508263" target="_blank" class="hover:text-kuning transition-colors">0821-7207-3426</a>
+                            <a href="https://wa.me/6282172073426" target="_blank" class="hover:text-kuning transition-colors">0821-7207-3426</a>
                         </li>
                         <li class="flex items-center gap-2 text-krem/50 text-sm">
                             <i data-lucide="clock" class="w-4 h-4 text-kuning flex-shrink-0"></i>
@@ -808,7 +686,6 @@
                 </div>
             </div>
 
-            <!-- Divider -->
             <div class="border-t border-krem/10 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
                 <p class="text-krem/30 text-xs">© 2026 Tech Taste Hub. All rights reserved. Made with 💛 & ☕</p>
                 <a href="#home" class="text-krem/30 hover:text-kuning text-xs transition-colors flex items-center gap-1">
@@ -819,20 +696,116 @@
     </footer>
 
     <!-- ============ FLOATING WHATSAPP BUTTON ============ -->
-    <a href="https://wa.me/6282174508263?text=Halo%20Tech%20Taste%20Hub%2C%20saya%20mau%20pesan!" target="_blank"
+    <a href="https://wa.me/6282172073426?text=Halo%20Tech%20Taste%20Hub%2C%20saya%20mau%20tanya!" target="_blank"
        class="fixed bottom-6 right-6 z-50 wa-pulse w-14 h-14 sm:w-16 sm:h-16 bg-green-500 rounded-full flex items-center justify-center shadow-xl shadow-green-500/30 hover:bg-green-600 hover:scale-110 transition-all duration-300"
        title="Chat WhatsApp">
         <svg class="w-7 h-7 sm:w-8 sm:h-8 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
     </a>
 
+    <!-- ============ FLOATING CART BUTTON ============ -->
+    <button id="cart-float-btn"
+            class="cart-float hidden-cart fixed bottom-6 left-6 z-50 bg-marun text-krem rounded-full shadow-xl shadow-marun/30 flex items-center gap-2 pl-5 pr-3 py-3 cursor-pointer hover:bg-marunDark"
+            onclick="openCartDrawer()">
+        <div class="flex flex-col items-start leading-none">
+            <span class="text-[10px] font-medium opacity-70">Keranjang</span>
+            <span id="cart-float-total" class="text-sm font-bold">Rp 0</span>
+        </div>
+        <div class="relative ml-1">
+            <i data-lucide="shopping-bag" class="w-6 h-6"></i>
+            <span id="cart-float-badge"
+                  class="absolute -top-2 -right-2 w-5 h-5 bg-kuning text-coklat text-[10px] font-bold rounded-full flex items-center justify-center">0</span>
+        </div>
+    </button>
+
+    <!-- ============ CART DRAWER ============ -->
+    <div id="cart-overlay" class="cart-overlay fixed inset-0 bg-coklat/40 backdrop-blur-sm z-[60]" onclick="closeCartDrawer()"></div>
+
+    <div id="cart-drawer" class="cart-drawer fixed bottom-0 left-0 right-0 z-[70] bg-krem rounded-t-[2rem] shadow-2xl max-h-[85vh] flex flex-col">
+        <!-- Handle -->
+        <div class="flex justify-center pt-3 pb-1 flex-shrink-0">
+            <div class="w-10 h-1 bg-coklat/20 rounded-full"></div>
+        </div>
+
+        <!-- Header -->
+        <div class="flex items-center justify-between px-6 py-3 flex-shrink-0">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-marun rounded-xl flex items-center justify-center">
+                    <i data-lucide="shopping-bag" class="w-5 h-5 text-krem"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-coklat text-lg leading-tight">Keranjang</h3>
+                    <span id="cart-item-count-text" class="text-coklatLight text-xs">0 item</span>
+                </div>
+            </div>
+            <button onclick="closeCartDrawer()" class="w-10 h-10 rounded-full bg-coklat/5 flex items-center justify-center hover:bg-coklat/10 transition-colors">
+                <i data-lucide="x" class="w-5 h-5 text-coklat"></i>
+            </button>
+        </div>
+
+        <div class="h-px bg-coklat/10 mx-6 flex-shrink-0"></div>
+
+        <!-- Cart Items List -->
+        <div id="cart-items-list" class="flex-1 overflow-y-auto px-6 py-4 space-y-3">
+            <!-- Empty state -->
+            <div id="cart-empty" class="flex flex-col items-center justify-center py-12 text-center">
+                <div class="w-20 h-20 bg-kuning/15 rounded-full flex items-center justify-center mb-4">
+                    <i data-lucide="shopping-bag" class="w-9 h-9 text-coklat/20"></i>
+                </div>
+                <p class="font-semibold text-coklat/40 text-base mb-1">Keranjang kosong</p>
+                <p class="text-coklatLight/50 text-sm">Yuk pilih menu favoritmu dulu!</p>
+            </div>
+        </div>
+
+        <!-- Bottom Section (Name + Total + Checkout) -->
+        <div id="cart-bottom" class="flex-shrink-0 border-t border-coklat/10 px-6 pt-4 pb-6 hidden">
+            <!-- Name Input -->
+            <div class="mb-4">
+                <label class="text-xs font-semibold text-coklatLight uppercase tracking-wider mb-1.5 block">Nama Pemesan</label>
+                <input type="text" id="customer-name" placeholder="Masukkan nama kamu..."
+                       class="name-input w-full px-4 py-3 rounded-xl border-2 border-coklat/10 bg-white text-coklat text-sm font-medium placeholder:text-coklat/30 transition-all duration-200">
+            </div>
+
+            <!-- Summary -->
+            <div class="bg-white rounded-2xl p-4 mb-4 border border-kuning/10">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-sm text-coklatLight">Total Item</span>
+                    <span id="cart-summary-items" class="text-sm font-bold text-coklat">0</span>
+                </div>
+                <div class="h-px bg-coklat/10 my-2"></div>
+                <div class="flex justify-between items-center">
+                    <span class="font-bold text-coklat">TOTAL</span>
+                    <span id="cart-summary-total" class="text-xl font-extrabold text-marun">Rp 0</span>
+                </div>
+            </div>
+
+            <!-- Checkout Button -->
+            <button id="checkout-btn" onclick="checkout()"
+                    class="w-full bg-marun text-krem py-4 rounded-2xl font-bold text-base hover:bg-marunDark hover:shadow-xl hover:shadow-marun/20 transition-all duration-300 flex items-center justify-center gap-3 cursor-pointer">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                Pesan via WhatsApp
+            </button>
+        </div>
+    </div>
+
     <!-- ============ TOAST NOTIFICATION ============ -->
-    <div id="toast" class="fixed top-24 right-6 z-50 bg-white rounded-2xl shadow-2xl p-4 border border-kuning/20 flex items-center gap-3 translate-x-[120%] transition-transform duration-500 max-w-xs">
+    <div id="toast" class="fixed top-24 right-6 z-[80] bg-white rounded-2xl shadow-2xl p-4 border border-kuning/20 flex items-center gap-3 translate-x-[120%] transition-transform duration-500 max-w-xs">
         <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
             <i data-lucide="check-circle" class="w-5 h-5 text-green-600"></i>
         </div>
         <div>
-            <div class="font-semibold text-coklat text-sm">Menu ditambahkan!</div>
-            <div class="text-coklatLight text-xs">Lanjut ke WhatsApp untuk checkout</div>
+            <div class="font-semibold text-coklat text-sm" id="toast-title">Ditambahkan!</div>
+            <div class="text-coklatLight text-xs" id="toast-desc">Risol Mayo masuk ke keranjang</div>
+        </div>
+    </div>
+
+    <!-- ============ NAME ERROR TOAST ============ -->
+    <div id="toast-error" class="fixed hidden top-24 left-1/2 -translate-x-1/2 z-[80] bg-red-50 border border-red-200 rounded-2xl shadow-2xl p-4 flex items-center gap-3 translate-y-[-120%] transition-transform duration-500 max-w-xs">
+        <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
+            <i data-lucide="alert-circle" class="w-5 h-5 text-red-500"></i>
+        </div>
+        <div>
+            <div class="font-semibold text-red-700 text-sm">Nama wajib diisi!</div>
+            <div class="text-red-500 text-xs">Masukkan nama pemesan dulu ya.</div>
         </div>
     </div>
 
@@ -842,7 +815,279 @@
         // Initialize Lucide icons
         lucide.createIcons();
 
-        // ========== NAVBAR SCROLL EFFECT ==========
+        // ========== MENU DATA ==========
+        const menuData = {
+            'risol-mayo':      { name: 'Risol Mayo',       price: 5000,  img: '/img/risol-mayo.jpg' },
+            'pangsit-chili-oil': { name: 'Pangsit Chili Oil', price: 10000, img: '/img/pangsit.jpg' },
+            'risol-coklat-keju': { name: 'Risol Coklat Keju', price: 4000,  img: '/img/risol-ck.jpg' },
+            'es-coklat':        { name: 'Es Coklat',        price: 10000, img: '/img/es-coklat.jpg' }
+        };
+
+        // ========== CART STATE ==========
+        let cart = [];
+        let toastTimer;
+
+        // ========== FORMAT PRICE ==========
+        function formatPrice(num) {
+            return 'Rp ' + num.toLocaleString('id-ID');
+        }
+
+        // ========== ADD TO CART ==========
+        function addToCart(id) {
+            const existing = cart.find(item => item.id === id);
+            if (existing) {
+                existing.qty++;
+            } else {
+                cart.push({ id, qty: 1 });
+            }
+            updateAllUI();
+            showToast(menuData[id].name + ' ditambahkan!', 'Qty: ' + getCartQty(id));
+        }
+
+        // ========== DECREMENT CART ==========
+        function decrementCart(id) {
+            const existing = cart.find(item => item.id === id);
+            if (existing) {
+                existing.qty--;
+                if (existing.qty <= 0) {
+                    cart = cart.filter(item => item.id !== id);
+                }
+            }
+            updateAllUI();
+        }
+
+        // ========== REMOVE FROM CART ==========
+        function removeFromCart(id) {
+            const el = document.getElementById('cart-item-' + id);
+            if (el) {
+                el.classList.add('removing');
+                setTimeout(() => {
+                    cart = cart.filter(item => item.id !== id);
+                    updateAllUI();
+                }, 300);
+            }
+        }
+
+        // ========== GET QTY ==========
+        function getCartQty(id) {
+            const item = cart.find(i => i.id === id);
+            return item ? item.qty : 0;
+        }
+
+        // ========== GET TOTALS ==========
+        function getCartTotals() {
+            let total = 0;
+            let totalItems = 0;
+            cart.forEach(item => {
+                const subtotal = menuData[item.id].price * item.qty;
+                total += subtotal;
+                totalItems += item.qty;
+            });
+            return { total, totalItems };
+        }
+
+        // ========== UPDATE ALL UI ==========
+        function updateAllUI() {
+            updateCardQtyControls();
+            updateCartFloatButton();
+            updateCartDrawer();
+        }
+
+        // ========== UPDATE CARD QTY CONTROLS ==========
+        function updateCardQtyControls() {
+            Object.keys(menuData).forEach(id => {
+                const qty = getCartQty(id);
+                const addBtn = document.querySelector(`[data-id="${id}"] .qty-add-btn`);
+                const qtyActive = document.getElementById('qty-' + id);
+
+                if (!addBtn || !qtyActive) return;
+
+                const countEl = qtyActive.querySelector('.qty-count');
+                countEl.textContent = qty;
+
+                if (qty > 0) {
+                    addBtn.classList.add('hide');
+                    qtyActive.classList.add('show');
+                } else {
+                    addBtn.classList.remove('hide');
+                    qtyActive.classList.remove('show');
+                }
+            });
+        }
+
+        // ========== UPDATE FLOATING CART BUTTON ==========
+        function updateCartFloatButton() {
+            const btn = document.getElementById('cart-float-btn');
+            const badge = document.getElementById('cart-float-badge');
+            const totalEl = document.getElementById('cart-float-total');
+            const { total, totalItems } = getCartTotals();
+
+            if (totalItems > 0) {
+                btn.classList.remove('hidden-cart');
+                badge.textContent = totalItems;
+                badge.classList.remove('badge-bounce');
+                void badge.offsetWidth; // trigger reflow
+                badge.classList.add('badge-bounce');
+                totalEl.textContent = formatPrice(total);
+            } else {
+                btn.classList.add('hidden-cart');
+            }
+        }
+
+        // ========== UPDATE CART DRAWER ==========
+        function updateCartDrawer() {
+            const listEl = document.getElementById('cart-items-list');
+            const emptyEl = document.getElementById('cart-empty');
+            const bottomEl = document.getElementById('cart-bottom');
+            const countText = document.getElementById('cart-item-count-text');
+            const summaryItems = document.getElementById('cart-summary-items');
+            const summaryTotal = document.getElementById('cart-summary-total');
+            const { total, totalItems } = getCartTotals();
+
+            countText.textContent = totalItems + ' item';
+            summaryItems.textContent = totalItems;
+            summaryTotal.textContent = formatPrice(total);
+
+            if (cart.length === 0) {
+                // Show empty state
+                listEl.innerHTML = '';
+                listEl.appendChild(createEmptyState());
+                bottomEl.classList.add('hidden');
+                return;
+            }
+
+            bottomEl.classList.remove('hidden');
+
+            // Build items
+            let html = '';
+            cart.forEach((item, index) => {
+                const menu = menuData[item.id];
+                const subtotal = menu.price * item.qty;
+                html += `
+                <div id="cart-item-${item.id}" class="cart-item bg-white rounded-2xl p-3 flex items-center gap-3 border border-kuning/10" style="transition: all 0.3s ease;">
+                    <img src="${menu.img}" alt="${menu.name}" class="w-16 h-16 rounded-xl object-cover flex-shrink-0">
+                    <div class="flex-1 min-w-0">
+                        <h4 class="font-bold text-coklat text-sm truncate">${menu.name}</h4>
+                        <p class="text-coklatLight text-xs">${formatPrice(menu.price)}</p>
+                        <div class="flex items-center gap-2 mt-1.5">
+                            <button onclick="decrementCart('${item.id}')" class="w-7 h-7 rounded-full bg-coklat/5 flex items-center justify-center text-coklat hover:bg-coklat/10 transition-colors cursor-pointer text-sm font-bold">−</button>
+                            <span class="w-6 text-center font-bold text-coklat text-sm">${item.qty}</span>
+                            <button onclick="addToCart('${item.id}')" class="w-7 h-7 rounded-full bg-coklat/5 flex items-center justify-center text-coklat hover:bg-coklat/10 transition-colors cursor-pointer text-sm font-bold">+</button>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-end gap-2 flex-shrink-0">
+                        <button onclick="removeFromCart('${item.id}')" class="w-7 h-7 rounded-full bg-red-50 flex items-center justify-center text-red-400 hover:bg-red-100 hover:text-red-600 transition-colors cursor-pointer">
+                            <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                        </button>
+                        <span class="text-sm font-bold text-marun whitespace-nowrap">${formatPrice(subtotal)}</span>
+                    </div>
+                </div>`;
+            });
+            listEl.innerHTML = html;
+
+            // Re-init lucide icons for new elements
+            lucide.createIcons();
+        }
+
+        function createEmptyState() {
+            const div = document.createElement('div');
+            div.id = 'cart-empty';
+            div.className = 'flex flex-col items-center justify-center py-12 text-center';
+            div.innerHTML = `
+                <div class="w-20 h-20 bg-kuning/15 rounded-full flex items-center justify-center mb-4">
+                    <i data-lucide="shopping-bag" class="w-9 h-9 text-coklat/20"></i>
+                </div>
+                <p class="font-semibold text-coklat/40 text-base mb-1">Keranjang kosong</p>
+                <p class="text-coklatLight/50 text-sm">Yuk pilih menu favoritmu dulu!</p>
+            `;
+            lucide.createIcons();
+            return div;
+        }
+
+        // ========== CART DRAWER OPEN/CLOSE ==========
+        function openCartDrawer() {
+            document.getElementById('cart-overlay').classList.add('open');
+            document.getElementById('cart-drawer').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCartDrawer() {
+            document.getElementById('cart-overlay').classList.remove('open');
+            document.getElementById('cart-drawer').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        // ========== TOAST ==========
+        function showToast(title, desc) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-title').textContent = title;
+            document.getElementById('toast-desc').textContent = desc;
+            clearTimeout(toastTimer);
+            toast.classList.add('toast-show');
+            toastTimer = setTimeout(() => {
+                toast.classList.remove('toast-show');
+            }, 2500);
+        }
+
+        function showErrorToast() {
+            const toast = document.getElementById('toast-error');
+            toast.style.transform = 'translateX(-50%) translateY(0)';
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.style.transform = 'translateX(-50%) translateY(-120%)';
+                toast.classList.add('hidden');
+            }, 3000);
+        }
+
+        // ========== CHECKOUT ==========
+        function checkout() {
+            const nameInput = document.getElementById('customer-name');
+            const name = nameInput.value.trim();
+
+            if (!name) {
+                showErrorToast();
+                nameInput.focus();
+                nameInput.style.borderColor = '#ef4444';
+                setTimeout(() => { nameInput.style.borderColor = ''; }, 2000);
+                return;
+            }
+
+            if (cart.length === 0) return;
+
+            const { total, totalItems } = getCartTotals();
+
+            let detail = '';
+            cart.forEach((item, index) => {
+                const menu = menuData[item.id];
+                const subtotal = menu.price * item.qty;
+                detail += `${index + 1}. ${menu.name.toUpperCase()}\n   Qty: ${item.qty}x\n   Harga: ${formatPrice(menu.price)}\n   Subtotal: ${formatPrice(subtotal)}\n\n`;
+            });
+
+            const message = `PESANAN BARU
+
+Nama: ${name}
+
+━━━━━━━━━━━━━━━
+DETAIL PESANAN:
+
+ ${detail.trim()}
+━━━━━━━━━━━━━━━
+TOTAL: ${formatPrice(total)}
+Total Item: ${totalItems}
+
+Mohon konfirmasi pesanan saya. Terima kasih!`;
+
+            const encoded = encodeURIComponent(message);
+            window.open(`https://wa.me/6282172073426?text=${encoded}`, '_blank');
+
+            // Reset cart after checkout
+            cart = [];
+            nameInput.value = '';
+            updateAllUI();
+            closeCartDrawer();
+        }
+
+        // ========== NAVBAR SCROLL ==========
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
@@ -898,7 +1143,6 @@
 
         tabBtns.forEach(btn => {
             btn.addEventListener('click', () => {
-                // Update active tab
                 tabBtns.forEach(b => {
                     b.classList.remove('active');
                     b.classList.add('text-coklat');
@@ -930,23 +1174,6 @@
             });
         });
 
-        // ========== TOAST NOTIFICATION ==========
-        const plusButtons = document.querySelectorAll('.menu-card a[href*="wa.me"]');
-        const toast = document.getElementById('toast');
-        let toastTimeout;
-
-        plusButtons.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                // Show toast
-                clearTimeout(toastTimeout);
-                toast.style.transform = 'translateX(0)';
-
-                toastTimeout = setTimeout(() => {
-                    toast.style.transform = 'translateX(120%)';
-                }, 3000);
-            });
-        });
-
         // ========== SMOOTH SCROLL ==========
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -957,43 +1184,6 @@
                 }
             });
         });
-
-        // ========== COUNTER ANIMATION ==========
-        function animateCounter(el, target, suffix = '') {
-            let current = 0;
-            const increment = target / 40;
-            const timer = setInterval(() => {
-                current += increment;
-                if (current >= target) {
-                    current = target;
-                    clearInterval(timer);
-                }
-                el.textContent = Math.floor(current) + suffix;
-            }, 30);
-        }
-
-        // Observe hero stats
-        const statsObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const statEls = entry.target.querySelectorAll('.font-extrabold');
-                    statEls.forEach(el => {
-                        const text = el.textContent;
-                        if (text.includes('+')) {
-                            animateCounter(el, parseInt(text), '+');
-                        } else if (text.includes('.')) {
-                            el.textContent = '4.9'; // keep as is for decimal
-                        } else if (text.includes('min')) {
-                            animateCounter(el, parseInt(text), 'min');
-                        }
-                    });
-                    statsObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.5 });
-
-        const statsContainer = document.querySelector('.flex.gap-6');
-        if (statsContainer) statsObserver.observe(statsContainer);
     </script>
 </body>
 </html>
